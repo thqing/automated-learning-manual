@@ -128,12 +128,7 @@
             margin-bottom: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            display: none;
             animation: fadeIn 0.5s;
-        }
-
-        .content-section.active {
-            display: block;
         }
 
         @keyframes fadeIn {
@@ -475,53 +470,53 @@
     -->
 
     <nav class="sidebar-nav">
-           
+
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section1')">1. PLC硬件电路图</div>
+                <div class="nav-section-title" onclick="scrollToSection('section1')">1. PLC硬件电路图</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section2')">2. 控制程序功能框图</div>
+                <div class="nav-section-title" onclick="scrollToSection('section2')">2. 控制程序功能框图</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section3')">3. 闭环控制原理</div>
+                <div class="nav-section-title" onclick="scrollToSection('section3')">3. 闭环控制原理</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section4')">4. 安全保护回路</div>
+                <div class="nav-section-title" onclick="scrollToSection('section4')">4. 安全保护回路</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section5')">5. 安全监视</div>
+                <div class="nav-section-title" onclick="scrollToSection('section5')">5. 安全监视</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section6')">6. 人机界面HMI</div>
+                <div class="nav-section-title" onclick="scrollToSection('section6')">6. 人机界面HMI</div>
             </div>
 
             <div class="nav-section">
                 <div class="nav-section-title" onclick="toggleNav('nav7')">7. 液压制动系统</div>
                 <div class="nav-items" id="nav7">
-                    <div class="nav-item" onclick="showSection('section7')">7.1 液压制动系统</div>
-                    <div class="nav-item" onclick="showSection('section7-3')">7.3 液压电气控制系统</div>
+                    <div class="nav-item" onclick="scrollToSection('section7')">7.1 液压制动系统</div>
+                    <div class="nav-item" onclick="scrollToSection('section7-3')">7.3 液压电气控制系统</div>
                 </div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section8')">8. 提升信号和装卸载</div>
+                <div class="nav-section-title" onclick="scrollToSection('section8')">8. 提升信号和装卸载</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section9')">9. 系统工作过程</div>
+                <div class="nav-section-title" onclick="scrollToSection('section9')">9. 系统工作过程</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section10')">10. 系统调试与维护</div>
+                <div class="nav-section-title" onclick="scrollToSection('section10')">10. 系统调试与维护</div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title" onclick="showSection('section-summary')">11. 学习总结</div>
+                <div class="nav-section-title" onclick="scrollToSection('section-summary')">11. 学习总结</div>
             </div>
         </nav>
     </div>
@@ -529,7 +524,7 @@
     <!-- 主内容区 -->
     <div class="main-content">
         <!-- 第1章：PLC硬件电路图及说明 -->
-        <div class="content-section active" id="section1">
+        <div class="content-section" id="section1">
             <div class="section-header">
                 <h2>1. PLC硬件电路图及说明</h2>
                 <div class="subtitle">提升机工艺控制系统核心架构</div>
@@ -1464,32 +1459,12 @@
             }
         }
 
-        // 显示章节内容
-        function showSection(sectionId) {
-            // 隐藏所有章节
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // 显示选中的章节
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
+        // 滚动到指定章节
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-
-            // 更新导航项状态
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.classList.remove('active');
-            });
-
-            if (typeof event !== 'undefined' && event && event.target && event.target.classList) {
-                event.target.classList.add('active');
-            }
-
-            // 滚动到顶部
-            window.scrollTo(0, 0);
         }
 
         // 答题功能
@@ -1514,22 +1489,8 @@
             }
         }
 
-        // 页面加载时默认展开所有导航，并显示第一章
+        // 页面加载时
         window.onload = function() {
-            toggleNav('nav1');
-            toggleNav('nav2');
-            toggleNav('nav3');
-            toggleNav('nav4');
-            toggleNav('nav5');
-            toggleNav('nav6');
-            toggleNav('nav7');
-            toggleNav('nav8');
-            toggleNav('nav9');
-            toggleNav('nav10');
-
-            // 默认显示第一章
-            showSection('section1');
-
             // 为所有 .pdf-image 绑定点击事件
             bindImageClickEvents();
         };

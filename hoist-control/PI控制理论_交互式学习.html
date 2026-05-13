@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PI控制理论 - 交互式学习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .demo-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .demo-panel {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .control-panel {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .control-group {
+            margin: 10px 0;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+        }
+
+        .control-value {
+            display: inline-block;
+            min-width: 50px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        canvas {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: white;
+            width: 100%;
+            height: 300px;
+        }
+
+        .analogy-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .analogy-box h4 {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box h4 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+
+        .tip-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .tip-box h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .concept-diagram {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚙️ PI控制理论 - 交互式学习</h1>
+            <p>提升机控制系统核心原理</p>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <h2>📚 什么是PI控制？</h2>
+                
+                <p>PI控制是<span class="highlight">比例（Proportional）</span>和<span class="highlight">积分（Integral）</span>控制的组合，是工业控制中最常用的控制策略之一。</p>
+                
+                <p>对于提升机这样的<span class="highlight">慢速、大惯性系统</span>，PI控制已经足够实现精确、平稳的控制，不需要微分（D）控制。</p>
+
+                <div class="formula-box">
+                    <strong>PI控制器输出公式：</strong><br>
+                    Output = Kp × error + Ki × ∫error dt<br>
+                    <br>
+                    其中：<br>
+                    • Kp = 比例增益（响应速度）<br>
+                    • Ki = 积分增益（消除稳态误差）<br>
+                    • error = 目标值 - 实际值
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 为什么提升机不用D控制？</h4>
+                    <ul>
+                        <li><strong>慢速系统</strong>：提升机转速、位置变化缓慢，误差变化率小，D项输出几乎为0</li>
+                        <li><strong>大惯性</strong>：系统响应慢，D项的"预测"作用无法发挥</li>
+                        <li><strong>副作用</strong>：D项会引入噪声，导致系统震荡，影响平稳性</li>
+                        <li><strong>PI已足够</strong>：P项快速响应，I项消除稳态误差，二者配合已可实现精确控制</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>1️⃣ 比例（P）控制 - 快速响应</h2>
+                
+                <h3>核心原理</h3>
+                <p>比例项输出与<span class="highlight">当前误差</span>成正比：误差越大，输出越大。</p>
+                
+                <div class="formula-box">
+                    P = Kp × error<br>
+                    <br>
+                    其中：error = 目标值 - 实际值
+                </div>
+
+                <h3>直观理解：开车油门</h3>
+                <div class="analogy-box">
+                    <h4>🚗 类比：保持定速行驶</h4>
+                    <p><strong>场景</strong>：你想保持60km/h的速度行驶</p>
+                    <ul>
+                        <li>当前速度55km/h → 误差5km/h → P项输出中等油门</li>
+                        <li>当前速度40km/h → 误差20km/h → P项输出大油门</li>
+                        <li>当前速度60km/h → 误差0 → P项输出0油门</li>
+                    </ul>
+                    <p><strong>问题</strong>：上坡时，P项输出0油门，但重力会让车减速，最终稳定在58km/h（<span class="highlight">稳态误差</span>）！</p>
+                </div>
+
+                <h3>交互式演示：调整Kp参数</h3>
+                <div class="interactive-demo">
+                    <div class="demo-container">
+                        <div class="demo-panel">
+                            <h4>📊 P控制响应曲线</h4>
+                            <canvas id="pControlCanvas" width="400" height="300"></canvas>
+                        </div>
+                        <div class="demo-panel">
+                            <h4>🎛️ 参数调节</h4>
+                            <div class="control-panel">
+                                <div class="control-group">
+                                    <label>Kp（比例增益）：<span class="control-value" id="kpValue">0.5</span></label>
+                                    <input type="range" id="kpSlider" min="0.1" max="2.0" step="0.1" value="0.5">
+                                </div>
+                                <div class="control-group">
+                                    <label>目标值：<span class="control-value" id="targetValue">100</span></label>
+                                    <input type="range" id="targetSlider" min="0" max="200" step="10" value="100">
+                                </div>
+                                <button onclick="simulatePControl()">▶️ 开始模拟</button>
+                                <button onclick="resetPControl()">🔄 重置</button>
+                            </div>
+                            <div class="tip-box">
+                                <h4>💡 观察要点</h4>
+                                <ul>
+                                    <li><strong>Kp太小</strong>：响应慢，稳态误差大</li>
+                                    <li><strong>Kp合适</strong>：响应快，稳态误差小</li>
+                                    <li><strong>Kp太大</strong>：超调大，可能震荡</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>P控制的缺陷：稳态误差</h3>
+                <div class="warning-box">
+                    <h4>⚠️ 稳态误差问题</h4>
+                    <p><strong>现象</strong>：系统稳定后，实际值永远达不到目标值，存在一个固定误差。</p>
+                    <p><strong>原因</strong>：当误差为0时，P项输出为0，但系统存在自发偏移力（如摩擦力、重力），需要持续的调控力来抵消。</p>
+                    <p><strong>解决方案</strong>：加入积分（I）项！</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>2️⃣ 积分（I）控制 - 消除稳态误差</h2>
+                
+                <h3>核心原理</h3>
+                <p>积分项输出与<span class="highlight">历史所有误差的累积</span>成正比：只要存在误差，积分项就会持续累积，直到误差为0。</p>
+                
+                <div class="formula-box">
+                    I = Ki × ∫error dt<br>
+                    <br>
+                    离散形式：I = Ki × (error₁ + error₂ + ... + errorₙ) × Δt
+                </div>
+
+                <h3>直观理解：蓄水池水位控制</h3>
+                <div class="analogy-box">
+                    <h4>💧 类比：保持目标水位</h4>
+                    <p><strong>场景</strong>：你想将蓄水池水位保持在1米</p>
+                    <ul>
+                        <li><strong>纯P控制</strong>：水位0.99米时，P项输出小功率，但池子漏水，最终稳定在0.99米（稳态误差）</li>
+                        <li><strong>加入I控制</strong>：每次水位不足都会被"记下来"，积分项逐步加大水泵功率，直到水位达到1米</li>
+                        <li><strong>关键</strong>：即使误差很小（如0.001米），只要不为0，积分项就会持续累积，最终消除误差</li>
+                    </ul>
+                </div>
+
+                <h3>交互式演示：PI控制效果</h3>
+                <div class="interactive-demo">
+                    <div class="demo-container">
+                        <div class="demo-panel">
+                            <h4>📊 PI控制响应曲线</h4>
+                            <canvas id="piControlCanvas" width="400" height="300"></canvas>
+                        </div>
+                        <div class="demo-panel">
+                            <h4>🎛️ 参数调节</h4>
+                            <div class="control-panel">
+                                <div class="control-group">
+                                    <label>Kp（比例增益）：<span class="control-value" id="kpPiValue">0.5</span></label>
+                                    <input type="range" id="kpPiSlider" min="0.1" max="2.0" step="0.1" value="0.5">
+                                </div>
+                                <div class="control-group">
+                                    <label>Ki（积分增益）：<span class="control-value" id="kiValue">0.1</span></label>
+                                    <input type="range" id="kiSlider" min="0.01" max="0.5" step="0.01" value="0.1">
+                                </div>
+                                <div class="control-group">
+                                    <label>目标值：<span class="control-value" id="targetPiValue">100</span></label>
+                                    <input type="range" id="targetPiSlider" min="0" max="200" step="10" value="100">
+                                </div>
+                                <button onclick="simulatePIControl()">▶️ 开始模拟</button>
+                                <button onclick="resetPIControl()">🔄 重置</button>
+                            </div>
+                            <div class="tip-box">
+                                <h4>💡 观察要点</h4>
+                                <ul>
+                                    <li><strong>纯P控制</strong>：有稳态误差，实际值无法达到目标值</li>
+                                    <li><strong>PI控制</strong>：I项消除稳态误差，实际值最终等于目标值</li>
+                                    <li><strong>Ki太大</strong>：积分累积过快，可能导致超调或震荡</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>3️⃣ 提升机中的PI控制应用</h2>
+                
+                <h3>提升机的三闭环控制</h3>
+                <p>提升机采用<span class="highlight">三闭环控制系统</span>，其中位置和速度控制都使用PI控制：</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>控制环</th>
+                            <th>控制器类型</th>
+                            <th>作用</th>
+                            <th>实现位置</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>位置闭环</strong></td>
+                            <td>比例（P）控制器</td>
+                            <td>使实际位置精确跟随设定位置</td>
+                            <td>FM458</td>
+                        </tr>
+                        <tr>
+                            <td><strong>速度闭环</strong></td>
+                            <td>比例积分（PI）控制器</td>
+                            <td>使实际速度精确跟随设定速度，消除稳态误差</td>
+                            <td>FM458</td>
+                        </tr>
+                        <tr>
+                            <td><strong>电流闭环</strong></td>
+                            <td>PI控制器</td>
+                            <td>控制电机转矩电流</td>
+                            <td>传动装置</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>速度PI控制器详解</h3>
+                <div class="formula-box">
+                    <strong>速度控制器输出（力矩设定值）：</strong><br>
+                    Output = Kp × (速度误差) + Ki × ∫(速度误差) dt<br>
+                    <br>
+                    其中：<br>
+                    • 速度误差 = 设定速度 - 实际速度<br>
+                    • 设定速度 = 设定点发生器输出 + 位置控制器输出<br>
+                    • 实际速度 = 速度编码器（编码器1）测得的速度
+                </div>
+
+                <h3>为什么速度控制需要I项？</h3>
+                <div class="analogy-box">
+                    <h4>🏗️ 类比：提升机速度控制</h4>
+                    <p><strong>场景</strong>：提升机以2m/s的速度上升，负载50吨</p>
+                    <ul>
+                        <li><strong>纯P控制</strong>：速度达到2m/s时，P项输出为0，但负载重力会让提升机减速，最终稳定在1.95m/s（稳态误差）</li>
+                        <li><strong>加入I控制</strong>：每次速度不足都会被累积，I项输出逐步加大力矩，直到速度稳定在2m/s</li>
+                        <li><strong>关键</strong>：I项输出的力矩正好抵消负载重力，保持恒速运行</li>
+                    </ul>
+                </div>
+
+                <h3>交互式演示：提升机速度控制</h3>
+                <div class="interactive-demo">
+                    <div class="demo-container">
+                        <div class="demo-panel">
+                            <h4>📊 提升机速度响应曲线</h4>
+                            <canvas id="hoistSpeedCanvas" width="400" height="300"></canvas>
+                        </div>
+                        <div class="demo-panel">
+                            <h4>🎛️ 参数调节</h4>
+                            <div class="control-panel">
+                                <div class="control-group">
+                                    <label>负载重量（吨）：<span class="control-value" id="loadValue">50</span></label>
+                                    <input type="range" id="loadSlider" min="0" max="100" step="5" value="50">
+                                </div>
+                                <div class="control-group">
+                                    <label>Kp（比例增益）：<span class="control-value" id="kpHostValue">0.8</span></label>
+                                    <input type="range" id="kpHostSlider" min="0.1" max="2.0" step="0.1" value="0.8">
+                                </div>
+                                <div class="control-group">
+                                    <label>Ki（积分增益）：<span class="control-value" id="kiHostValue">0.05</span></label>
+                                    <input type="range" id="kiHostSlider" min="0" max="0.2" step="0.01" value="0.05">
+                                </div>
+                                <button onclick="simulateHoistSpeed()">▶️ 开始模拟</button>
+                                <button onclick="resetHoistSpeed()">🔄 重置</button>
+                            </div>
+                            <div class="warning-box">
+                                <h4>⚠️ 观察要点</h4>
+                                <ul>
+                                    <li><strong>负载变化</strong>：负载越大，重力影响越大，需要更大的I项输出</li>
+                                    <li><strong>Ki太小</strong>：稳态误差消除慢，速度恢复时间长</li>
+                                    <li><strong>Ki太大</strong>：积分累积过快，速度可能超调，导致震荡</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 PI参数调优技巧</h2>
+                
+                <h3>分步调参法</h3>
+                <ol>
+                    <li><strong>先调P</strong>：将Ki设为0，逐渐增大Kp，直到系统响应较快且有轻微超调</li>
+                    <li><strong>再调I</strong>：保持Kp不变，逐渐增大Ki，直到稳态误差在可接受时间内消除</li>
+                    <li><strong>微调</strong>：根据实际情况微调Kp和Ki，平衡响应速度和稳定性</li>
+                </ol>
+
+                <h3>参数影响对照表</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>参数</th>
+                            <th>增大效果</th>
+                            <th>减小效果</th>
+                            <th>过大后果</th>
+                            <th>过小后果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Kp</strong></td>
+                            <td>响应变快，稳态误差减小</td>
+                            <td>响应变慢，稳态误差增大</td>
+                            <td>超调大，可能震荡</td>
+                            <td>响应慢，稳态误差大</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ki</strong></td>
+                            <td>稳态误差消除加快</td>
+                            <td>稳态误差消除变慢</td>
+                            <td>超调大，可能震荡</td>
+                            <td>稳态误差消除慢</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>提升机PI控制特殊考虑</h3>
+                <div class="tip-box">
+                    <h4>✅ 最佳实践</h4>
+                    <ul>
+                        <li><strong>加速度预控</strong>：在PI控制基础上，加入加速度预控项，补偿惯性力</li>
+                        <li><strong>载荷预控</strong>：根据装载量，提前给出相应的力矩预控</li>
+                        <li><strong>机械预控</strong>：补偿两个箕斗的自重差和首尾绳重量差</li>
+                        <li><strong>平滑设定值</strong>：使用加速度变化率控制，让设定值曲线全程平滑可导</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎓 学习总结</h2>
+                
+                <div class="tip-box">
+                    <h4>✅ 核心要点</h4>
+                    <ol>
+                        <li><strong>P控制</strong>：快速响应误差，但存在稳态误差</li>
+                        <li><strong>I控制</strong>：消除稳态误差，但可能引入超调</li>
+                        <li><strong>PI控制</strong>：P快速响应 + I消除稳态误差，工业最常用</li>
+                        <li><strong>提升机不用D</strong>：慢速大惯性系统，D项无法发挥作用，反而有副作用</li>
+                        <li><strong>三闭环</strong>：位置P + 速度PI + 电流PI，实现精确控制</li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🎯 实际应用建议</h4>
+                    <ul>
+                        <li>理解P、I的作用，才能看懂提升机控制原理</li>
+                        <li>掌握参数调优方法，才能诊断控制故障</li>
+                        <li>结合提升机工艺，理解PI控制的局限性</li>
+                        <li>学习使用IbaPDA分析曲线，验证控制效果</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="window.location.href='提升机控制系统_学习手册_新布局.html'" style="font-size: 1.2em; padding: 15px 30px;">
+                        📚 返回学习手册
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // P控制模拟
+        let pCanvas, pCtx;
+        let pData = [];
+        let pAnimationId = null;
+
+        function initPControl() {
+            pCanvas = document.getElementById('pControlCanvas');
+            pCtx = pCanvas.getContext('2d');
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+            
+            // 绘制坐标轴
+            pCtx.beginPath();
+            pCtx.moveTo(50, 250);
+            pCtx.lineTo(350, 250);
+            pCtx.moveTo(50, 250);
+            pCtx.lineTo(50, 50);
+            pCtx.strokeStyle = '#333';
+            pCtx.stroke();
+            
+            // 标签
+            pCtx.font = '12px Arial';
+            pCtx.fillText('时间', 320, 270);
+            pCtx.fillText('速度', 20, 60);
+            pCtx.fillText('目标值', 200, 40);
+        }
+
+        function simulatePControl() {
+            if (pAnimationId) {
+                cancelAnimationFrame(pAnimationId);
+            }
+
+            const kp = parseFloat(document.getElementById('kpSlider').value);
+            const target = parseFloat(document.getElementById('targetSlider').value);
+            
+            document.getElementById('kpValue').textContent = kp;
+            document.getElementById('targetValue').textContent = target;
+
+            initPControl();
+            
+            let time = 0;
+            let actualSpeed = 0;
+            let dataPoints = [];
+            
+            function animate() {
+                if (time > 300) {
+                    return;
+                }
+                
+                // P控制算法（简化模型）
+                const error = target - actualSpeed;
+                const output = kp * error;
+                
+                // 模拟系统响应（一阶惯性系统）
+                const systemResponse = 0.1 * (output - actualSpeed);
+                actualSpeed += systemResponse;
+                
+                // 加入稳态误差（模拟负载影响）
+                const steadyStateError = 0.05 * actualSpeed;
+                actualSpeed -= steadyStateError;
+                
+                dataPoints.push({time: time, speed: actualSpeed});
+                
+                // 绘制目标线
+                pCtx.beginPath();
+                pCtx.moveTo(50, 250 - target * 2);
+                pCtx.lineTo(350, 250 - target * 2);
+                pCtx.strokeStyle = 'red';
+                pCtx.setLineDash([5, 5]);
+                pCtx.stroke();
+                pCtx.setLineDash([]);
+                
+                // 绘制响应曲线
+                if (dataPoints.length > 1) {
+                    pCtx.beginPath();
+                    pCtx.moveTo(50 + dataPoints[0].time, 250 - dataPoints[0].speed * 2);
+                    
+                    for (let i = 1; i < dataPoints.length; i++) {
+                        pCtx.lineTo(50 + dataPoints[i].time, 250 - dataPoints[i].speed * 2);
+                    }
+                    
+                    pCtx.strokeStyle = '#667eea';
+                    pCtx.lineWidth = 2;
+                    pCtx.stroke();
+                    pCtx.lineWidth = 1;
+                }
+                
+                time += 1;
+                pAnimationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        function resetPControl() {
+            if (pAnimationId) {
+                cancelAnimationFrame(pAnimationId);
+            }
+            initPControl();
+            pData = [];
+        }
+
+        // PI控制模拟
+        let piCanvas, piCtx;
+        let piAnimationId = null;
+
+        function initPIControl() {
+            piCanvas = document.getElementById('piControlCanvas');
+            piCtx = piCanvas.getContext('2d');
+            piCtx.clearRect(0, 0, piCanvas.width, piCanvas.height);
+            
+            // 绘制坐标轴
+            piCtx.beginPath();
+            piCtx.moveTo(50, 250);
+            piCtx.lineTo(350, 250);
+            piCtx.moveTo(50, 250);
+            piCtx.lineTo(50, 50);
+            piCtx.strokeStyle = '#333';
+            piCtx.stroke();
+            
+            // 标签
+            piCtx.font = '12px Arial';
+            piCtx.fillText('时间', 320, 270);
+            piCtx.fillText('速度', 20, 60);
+            piCtx.fillText('目标值', 200, 40);
+        }
+
+        function simulatePIControl() {
+            if (piAnimationId) {
+                cancelAnimationFrame(piAnimationId);
+            }
+
+            const kp = parseFloat(document.getElementById('kpPiSlider').value);
+            const ki = parseFloat(document.getElementById('kiSlider').value);
+            const target = parseFloat(document.getElementById('targetPiSlider').value);
+            
+            document.getElementById('kpPiValue').textContent = kp;
+            document.getElementById('kiValue').textContent = ki;
+            document.getElementById('targetPiValue').textContent = target;
+
+            initPIControl();
+            
+            let time = 0;
+            let actualSpeed = 0;
+            let integral = 0;
+            let dataPoints = [];
+            
+            function animate() {
+                if (time > 300) {
+                    return;
+                }
+                
+                // PI控制算法
+                const error = target - actualSpeed;
+                integral += error;
+                const output = kp * error + ki * integral;
+                
+                // 模拟系统响应
+                const systemResponse = 0.1 * (output - actualSpeed);
+                actualSpeed += systemResponse;
+                
+                dataPoints.push({time: time, speed: actualSpeed});
+                
+                // 绘制目标线
+                piCtx.beginPath();
+                piCtx.moveTo(50, 250 - target * 2);
+                piCtx.lineTo(350, 250 - target * 2);
+                piCtx.strokeStyle = 'red';
+                piCtx.setLineDash([5, 5]);
+                piCtx.stroke();
+                piCtx.setLineDash([]);
+                
+                // 绘制响应曲线
+                if (dataPoints.length > 1) {
+                    piCtx.beginPath();
+                    piCtx.moveTo(50 + dataPoints[0].time, 250 - dataPoints[0].speed * 2);
+                    
+                    for (let i = 1; i < dataPoints.length; i++) {
+                        piCtx.lineTo(50 + dataPoints[i].time, 250 - dataPoints[i].speed * 2);
+                    }
+                    
+                    piCtx.strokeStyle = '#28a745';
+                    piCtx.lineWidth = 2;
+                    piCtx.stroke();
+                    piCtx.lineWidth = 1;
+                }
+                
+                time += 1;
+                piAnimationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        function resetPIControl() {
+            if (piAnimationId) {
+                cancelAnimationFrame(piAnimationId);
+            }
+            initPIControl();
+        }
+
+        // 提升机速度控制模拟
+        let hoistCanvas, hoistCtx;
+        let hoistAnimationId = null;
+
+        function initHoistSpeed() {
+            hoistCanvas = document.getElementById('hoistSpeedCanvas');
+            hoistCtx = hoistCanvas.getContext('2d');
+            hoistCtx.clearRect(0, 0, hoistCanvas.width, hoistCanvas.height);
+            
+            // 绘制坐标轴
+            hoistCtx.beginPath();
+            hoistCtx.moveTo(50, 250);
+            hoistCtx.lineTo(350, 250);
+            hoistCtx.moveTo(50, 250);
+            hoistCtx.lineTo(50, 50);
+            hoistCtx.strokeStyle = '#333';
+            hoistCtx.stroke();
+            
+            // 标签
+            hoistCtx.font = '12px Arial';
+            hoistCtx.fillText('时间', 320, 270);
+            hoistCtx.fillText('速度 (m/s)', 20, 60);
+            hoistCtx.fillText('目标速度', 200, 40);
+        }
+
+        function simulateHoistSpeed() {
+            if (hoistAnimationId) {
+                cancelAnimationFrame(hoistAnimationId);
+            }
+
+            const load = parseFloat(document.getElementById('loadSlider').value);
+            const kp = parseFloat(document.getElementById('kpHostSlider').value);
+            const ki = parseFloat(document.getElementById('kiHostSlider').value);
+            const target = 2.0; // 目标速度2m/s
+            
+            document.getElementById('loadValue').textContent = load;
+            document.getElementById('kpHostValue').textContent = kp;
+            document.getElementById('kiHostValue').textContent = ki;
+
+            initHoistSpeed();
+            
+            let time = 0;
+            let actualSpeed = 0;
+            let integral = 0;
+            let dataPoints = [];
+            
+            // 负载影响系数（负载越大，重力影响越大）
+            const loadImpact = load / 1000;
+            
+            function animate() {
+                if (time > 300) {
+                    return;
+                }
+                
+                // PI控制算法（提升机速度控制）
+                const error = target - actualSpeed;
+                integral += error;
+                const output = kp * error + ki * integral;
+                
+                // 模拟系统响应（考虑负载影响）
+                const systemResponse = 0.05 * (output - actualSpeed - loadImpact);
+                actualSpeed += systemResponse;
+                
+                // 限制速度范围
+                if (actualSpeed < 0) actualSpeed = 0;
+                if (actualSpeed > 3) actualSpeed = 3;
+                
+                dataPoints.push({time: time, speed: actualSpeed});
+                
+                // 绘制目标线
+                hoistCtx.beginPath();
+                hoistCtx.moveTo(50, 250 - target * 100);
+                hoistCtx.lineTo(350, 250 - target * 100);
+                hoistCtx.strokeStyle = 'red';
+                hoistCtx.setLineDash([5, 5]);
+                hoistCtx.stroke();
+                hoistCtx.setLineDash([]);
+                
+                // 绘制响应曲线
+                if (dataPoints.length > 1) {
+                    hoistCtx.beginPath();
+                    hoistCtx.moveTo(50 + dataPoints[0].time, 250 - dataPoints[0].speed * 100);
+                    
+                    for (let i = 1; i < dataPoints.length; i++) {
+                        hoistCtx.lineTo(50 + dataPoints[i].time, 250 - dataPoints[i].speed * 100);
+                    }
+                    
+                    hoistCtx.strokeStyle = '#764ba2';
+                    hoistCtx.lineWidth = 2;
+                    hoistCtx.stroke();
+                    hoistCtx.lineWidth = 1;
+                }
+                
+                time += 1;
+                hoistAnimationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        function resetHoistSpeed() {
+            if (hoistAnimationId) {
+                cancelAnimationFrame(hoistAnimationId);
+            }
+            initHoistSpeed();
+        }
+
+        // 页面加载时初始化所有画布
+        window.onload = function() {
+            initPControl();
+            initPIControl();
+            initHoistSpeed();
+        };
+    </script>
+</body>
+</html>

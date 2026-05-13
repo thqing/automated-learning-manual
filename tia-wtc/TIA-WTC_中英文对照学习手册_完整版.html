@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIA-WTC 专家系统描述 - 中英文对照学习手册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #16a085;
+            --highlight: #e67e22;
+            --bg-main: #ecf0f1;
+            --bg-sidebar: #2c3e50;
+            --bg-content: #ffffff;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --border: #bdc3c7;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-dark);
+            display: flex;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            height: 100vh;
+            background: var(--bg-sidebar);
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav {
+            padding: 15px 0;
+        }
+
+        .nav-section {
+            margin-bottom: 10px;
+        }
+
+        .nav-section-title {
+            background: var(--secondary);
+            color: var(--text-light);
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-section-title:hover {
+            background: var(--accent);
+            border-left-color: var(--highlight);
+            padding-left: 25px;
+        }
+
+        .nav-items {
+            background: rgba(0,0,0,0.15);
+            display: none;
+        }
+
+        .nav-items.active {
+            display: block;
+        }
+
+        .nav-item {
+            padding: 10px 30px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(22, 160, 133, 0.3);
+            border-left-color: var(--accent);
+            padding-left: 35px;
+        }
+
+        .nav-item.active {
+            background: var(--accent);
+            border-left-color: var(--highlight);
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 320px;
+            padding: 40px;
+            flex: 1;
+            max-width: 1200px;
+        }
+
+        .content-section {
+            background: var(--bg-content);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .section-header .subtitle {
+            color: var(--secondary);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .bilingual-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+        }
+
+        .english-text {
+            color: var(--primary);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .chinese-text {
+            color: var(--secondary);
+            font-size: 15px;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .term-block {
+            background: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .term-title {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .term-en {
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .term-cn {
+            color: var(--secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .info-box {
+            background: #e8f6f3;
+            border-left: 4px solid var(--success);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fef9e7;
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .danger-box {
+            background: #fdedec;
+            border-left: 4px solid var(--danger);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>TIA-WTC 学习手册</h1>
+            <p>专家系统描述 | 中英文对照</p>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNav('nav1')">1. 前言</div>
+                <div class="nav-items" id="nav1">
+                    <div class="nav-item" onclick="showSection('section1')">1. 前言 Preamble</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNav('nav2')">2. 系统总体描述</div>
+                <div class="nav-items" id="nav2">
+                    <div class="nav-item" onclick="showSection('section2-1')">2.1 控制系统</div>
+                    <div class="nav-item" onclick="showSection('section2-2')">2.2 数据记录仪</div>
+                    <div class="nav-item" onclick="showSection('section2-3')">2.3 诊断笔记本</div>
+                    <div class="nav-item" onclick="showSection('section2-4')">2.4 分散式外围设备</div>
+                    <div class="nav-item" onclick="showSection('section2-5')">2.5 地址</div>
+                    <div class="nav-item" onclick="showSection('section2-6')">2.6 故障安全CPU</div>
+                    <div class="nav-item" onclick="showSection('section2-7')">2.7 人机界面</div>
+                    <div class="nav-item" onclick="showSection('section2-8')">2.8 打印机</div>
+                    <div class="nav-item" onclick="showSection('section2-9')">2.9 总线系统</div>
+                    <div class="nav-item" onclick="showSection('section2-10')">2.10 Scalance交换机</div>
+                    <div class="nav-item" onclick="showSection('section2-11')">2.11 时间同步</div>
+                    <div class="nav-item" onclick="showSection('section2-12')">2.12 数据集中器</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNav('nav3')">3. 软件描述</div>
+                <div class="nav-items" id="nav3">
+                    <div class="nav-item" onclick="showSection('section3-1')">3.1 S7-1500软件模块</div>
+                    <div class="nav-item" onclick="showSection('section3-1-1')">3.1.1 模块缩写</div>
+                    <div class="nav-item" onclick="showSection('section3-1-2')">3.1.2 功能块名称缩写</div>
+                    <div class="nav-item" onclick="showSection('section3-1-3')">3.1.3 主要模块</div>
+                    <div class="nav-item" onclick="showSection('section3-1-4')">3.1.4 附加模块</div>
+                    <div class="nav-item" onclick="showSection('section3-2')">3.2 Simotion软件模块</div>
+                    <div class="nav-item" onclick="showSection('section3-3')">3.3 S7-1200F软件模块</div>
+                    <div class="nav-item" onclick="showSection('section3-4')">3.4 数据集中器软件</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNav('nav4')">4. 软件处理</div>
+                <div class="nav-items" id="nav4">
+                    <div class="nav-item" onclick="showSection('section4-1')">4.1 软件保护</div>
+                    <div class="nav-item" onclick="showSection('section4-2')">4.2 受保护软件</div>
+                    <div class="nav-item" onclick="showSection('section4-3')">4.3 系统软件</div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 第1章：前言 -->
+        <div class="content-section active" id="section1">
+            <div class="section-header">
+                <h2>1. Preamble | 前言</h2>
+                <div class="subtitle">文档概述与用途说明</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Document Purpose | 文档用途:</strong><br>
+                    This description is for experienced Mine Winder engineers only. It does not describe a mine winder or the TIA-WTC, but it shows how the system is structured.<br><br>
+                    
+                    The TIA-WTC is designed not only to fulfill the requirements of mining authorities but also to get a Safety Integrity Level 3 (SIL3). For SIL3 purposes some special functions are implemented.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    本说明书仅适用于有经验的矿井提升机工程师。它不描述矿井提升机或TIA-WTC本身，而是展示系统的结构组成。<br><br>
+                    
+                    TIA-WTC的设计不仅满足矿山监管机构的要求，还达到了安全完整性等级3（SIL3）。为了实现SIL3，实施了一些特殊功能。
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 关键信息：</strong><br>
+                • 目标读者：经验丰富的提升机工程师<br>
+                • 文档性质：系统结构说明，非操作手册<br>
+                • 安全等级：SIL3（安全完整性等级3）<br>
+                • 版本：Rev. 05 (31.07.2021)
+            </div>
+        </div>
+
+        <!-- 第2.1节：控制系统 -->
+        <div class="content-section" id="section2-1">
+            <div class="section-header">
+                <h2>2.1 Control System | 控制系统</h2>
+                <div class="subtitle">TIA-WTC硬件架构与通道配置</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>System Architecture | 系统架构:</strong><br>
+                    The TIA-WTC is built as a double channel system with an S7-1516 in Channel A and S7-1515 in Channel B. Additionally there is a Simotion D445 which belongs to Channel A. For system supervisions a Fail-safe CPU necessary, therefore, a S7-1214F is installed. If SIL3 is requested the Fail-safe CPU also takes care of the shaft limit switches.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    TIA-WTC构建为双通道系统，通道A使用S7-1516，通道B使用S7-1515。此外，还有一个属于通道A的Simotion D445。为了进行系统监控，需要故障安全CPU，因此安装了S7-1214F。如果要求SIL3，故障安全CPU还负责井筒限位开关。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>组件 (Component)</th>
+                        <th>通道 (Channel)</th>
+                        <th>主要功能 (Main Functions)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S7-1516</td>
+                        <td>Channel A</td>
+                        <td>
+                            <div class="term-en">• Supervisions - 监控</div>
+                            <div class="term-cn">• 监控功能</div>
+                            <div class="term-en">• Machine Control - 机器控制</div>
+                            <div class="term-cn">• 机器控制</div>
+                            <div class="term-en">• Shaft Signaling System - 井筒信号系统</div>
+                            <div class="term-cn">• 井筒信号系统</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Simotion D445</td>
+                        <td>Channel A</td>
+                        <td>
+                            <div class="term-en">• Encoder and Synchronizing Switch Inputs</div>
+                            <div class="term-cn">• 编码器和同步开关输入</div>
+                            <div class="term-en">• Closed Loop Control (CLC)</div>
+                            <div class="term-cn">• 闭环控制</div>
+                            <div class="term-en">• Drive Interface - 传动接口</div>
+                            <div class="term-cn">• 传动接口</div>
+                            <div class="term-en">• Drive Supervisions - 传动监控</div>
+                            <div class="term-cn">• 传动监控</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S7-1515</td>
+                        <td>Channel B</td>
+                        <td>
+                            <div class="term-en">• Supervisions - 监控</div>
+                            <div class="term-cn">• 监控功能</div>
+                            <div class="term-en">• Machine Control - 机器控制</div>
+                            <div class="term-cn">• 机器控制</div>
+                            <div class="term-en">• Shaft Signaling System - 井筒信号系统</div>
+                            <div class="term-cn">• 井筒信号系统</div>
+                            <div class="term-en">• Encoder and Synchronizing switch Inputs</div>
+                            <div class="term-cn">• 编码器和同步开关输入</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S7-1214F</td>
+                        <td>Fail-safe CPU</td>
+                        <td>
+                            <div class="term-en">• Supervision of S7-1500 CPU Channel A</div>
+                            <div class="term-cn">• 监控S7-1500 CPU通道A</div>
+                            <div class="term-en">• Shaft limit switches (if SIL3)</div>
+                            <div class="term-cn">• 井筒限位开关（如果要求SIL3）</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ 重要说明：</strong><br>
+                • 通道A和B使用不同类型的CPU，这是出于SIL3/TAS要求的考虑<br>
+                • 通道A和B使用不同类型的编码器输入，符合SIL3要求<br>
+                • 使用"小型"CPU以获得更好的MTBF（平均故障间隔时间）值<br>
+                • 每个通道最多可读取6个HTL脉冲编码器和16个同步开关
+            </div>
+        </div>
+
+        <!-- 第2.2节：数据记录仪 -->
+        <div class="content-section" id="section2-2">
+            <div class="section-header">
+                <h2>2.2 Data Recorder (Option) | 数据记录仪（可选）</h2>
+                <div class="subtitle">数据采集与记录系统</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Hardware Configuration | 硬件配置:</strong><br>
+                    The datarecorder is a Simatic BOX PC with ibaPDA running on it. The data from the control system can be received via ibaBM-DP (Profibus) or ibaBM-PN (Profinet). The standard configuration is Profibus, and it reads signals from the S7-1516 Channel A, the Simotion and the drive.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    数据记录仪是一台运行ibaPDA的Simatic BOX PC。来自控制系统的数据可以通过ibaBM-DP（Profibus）或ibaBM-PN（Profinet）接收。标准配置是Profibus，它读取来自S7-1516通道A、Simotion和传动装置的数据。
+                </div>
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 功能特性</div>
+                <div class="term-en">• The datarecorder can be operated via AMT over Ethernet from the Diagnostic Notebook</div>
+                <div class="term-cn">• 数据记录仪可以通过以太网从诊断笔记本通过AMT操作</div>
+                <div class="term-en">• Additionally, in the Diagnostic Notebook a screen is available with trigger settings and display of the system status</div>
+                <div class="term-cn">• 此外，在诊断笔记本中有一个屏幕，可用于触发设置和显示系统状态</div>
+                <div class="term-en">• In order to get signals from the S7-1515 Channel B it could be extended (additional hardware and software licenses required)</div>
+                <div class="term-cn">• 为了从S7-1515通道B获取信号，可以扩展（需要额外的硬件和软件许可证）</div>
+            </div>
+        </div>
+
+        <!-- 第2.3节：诊断笔记本 -->
+        <div class="content-section" id="section2-3">
+            <div class="section-header">
+                <h2>2.3 Diagnostic Notebook | 诊断笔记本</h2>
+                <div class="subtitle">系统诊断与测试工具</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Diagnostic Functions | 诊断功能:</strong><br>
+                    The Diagnostic Notebook is a Simatic Field PG with all necessary engineering and runtime software for the TIA-WTC installed on it. It is connected via Profinet to the control system and HMI. The diagnostic application has the following functions implemented:
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    诊断笔记本是一台装有TIA-WTC所有必要工程和运行软件的Simatic Field PG。它通过Profinet连接到控制系统和HMI。诊断应用实现了以下功能：
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>诊断功能 (Diagnostic Functions)</th>
+                        <th>说明 (Description)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Test of supervisions and safety concept</td>
+                        <td>测试监控和安全概念 CPU通道A/B</td>
+                    </tr>
+                    <tr>
+                        <td>Test of Drive supervisions</td>
+                        <td>测试传动监控</td>
+                    </tr>
+                    <tr>
+                        <td>Setting of rope correction factor</td>
+                        <td>设置绳缆校正系数（Simotion通道A和S7-1500通道B）</td>
+                    </tr>
+                    <tr>
+                        <td>Test of Brake Supervisions</td>
+                        <td>测试制动监控 CPU通道A/B</td>
+                    </tr>
+                    <tr>
+                        <td>Message-system</td>
+                        <td>消息系统</td>
+                    </tr>
+                    <tr>
+                        <td>Trigger settings for data-recorder</td>
+                        <td>数据记录仪触发设置</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ 启动条件：</strong><br>
+                • 诊断应用仅在Field PG的时间与CPU时间相同时才能启动<br>
+                • 诊断应用版本必须与CPU用户软件版本匹配<br>
+                • 时间同步通过CPU的"本地时间"功能实现
+            </div>
+        </div>
+
+        <!-- 第2.4节：分散式外围设备 -->
+        <div class="content-section" id="section2-4">
+            <div class="section-header">
+                <h2>2.4 Decentralized Periphery | 分散式外围设备</h2>
+                <div class="subtitle">ET200SP系列IO模块</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Hardware Specification | 硬件规格:</strong><br>
+                    The IO-Modules are from the ET200SP series. This is the only series of ET200s with all necessary modules even SIWAREX for e.g., loading and motorstarter for e.g., LV distribution. Other ET200 series do not support all necessary modules.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    IO模块来自ET200SP系列。这是ET200系列中唯一具有所有必要模块的产品系列，甚至包括用于例如装载的SIWAREX和用于例如低压分配的电机启动器。其他ET200系列不支持所有必要模块。
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 关键信息：</strong><br>
+                • 使用ET200SP系列IO模块<br>
+                • 支持SIWAREX（称重模块）<br>
+                • 支持电机启动器（低压分配）<br>
+                • 其他ET200系列不满足全部需求
+            </div>
+        </div>
+
+        <!-- 第2.5节：地址 -->
+        <div class="content-section" id="section2-5">
+            <div class="section-header">
+                <h2>2.5 Addresses | 地址</h2>
+                <div class="subtitle">IO地址分配与模块划分</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Address Assignment | 地址分配:</strong><br>
+                    The system is divided in modules. Therefore, the addresses of IOs had to be arranged to the modules and the buses. A separate list (Signallist overview) shows the predefined ranges of addresses.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    系统按模块划分。因此，IO的地址必须按照模块和总线进行安排。单独的列表（信号列表概览）显示了预定义的地址范围。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2.6节：故障安全CPU -->
+        <div class="content-section" id="section2-6">
+            <div class="section-header">
+                <h2>2.6 Failsafe CPU | 故障安全CPU</h2>
+                <div class="subtitle">SIL3和TAS等级实现</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Safety Supervision | 安全监控:</strong><br>
+                    In order to reach a SIL3 and TAS level it is necessary to supervise the standard CPUs (S7-1500) via a failsafe CPU (S7-1200F). It is sufficient to supervise the CPU in Channel A only. Therefor a special software is running in the supervisions of Channel A and three bits are send to the S7-1200F.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    为了达到SIL3和TAS等级，必须通过故障安全CPU（S7-1200F）来监控标准CPU（S7-1500）。仅监控通道A中的CPU就足够了。因此，在通道A的监控功能中运行特殊软件，并将三个位发送到S7-1200F。
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ 安全机制：</strong><br>
+                • 如果这三个位有任何错误，S7-1200F将切断通道A和B的安全电路继电器<br>
+                • 如果要求SIL3，S7-1200F还必须负责井筒限位开关
+            </div>
+        </div>
+
+        <!-- 第2.7节：人机界面 -->
+        <div class="content-section" id="section2-7">
+            <div class="section-header">
+                <h2>2.7 Human Machine Interface | 人机界面</h2>
+                <div class="subtitle">HMI PC配置与连接</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>HMI Configuration | HMI配置:</strong><br>
+                    The HMI PC are Simatic Microbox PCs with TIA-WinCC. They are connected to the control system CPUs in Channel A and B only via Profinet. In the standard configuration it is possible to connect 3 PCs and 1 Operator Panel to the TIA-WTC.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    HMI PC是装有TIA-WinCC的Simatic Microbox PC。它们仅通过Profinet连接到通道A和B中的控制系统CPU。在标准配置中，可以将3台PC和1个操作面板连接到TIA-WTC。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2.8节：打印机 -->
+        <div class="content-section" id="section2-8">
+            <div class="section-header">
+                <h2>2.8 Printer (Option) | 打印机（可选）</h2>
+                <div class="subtitle">网络打印功能</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Printer Connection | 打印机连接:</strong><br>
+                    The printer is connected to the Ethernet / Profinet and can be accessed from all PCs.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    打印机连接到以太网/Profinet，可以从所有PC访问。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2.9节：总线系统 -->
+        <div class="content-section" id="section2-9">
+            <div class="section-header">
+                <h2>2.9 Bus Systems | 总线系统</h2>
+                <div class="subtitle">通信系统架构</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Interface Configuration | 接口配置:</strong><br>
+                    The Interface between: Channel A and B is Profinet IO with Channel A as master. Channel A/B and HMI/Diagnostic/Engineering Notebook is Profinet. Channel A and Simotion is Profibus DP with Channel A S7-CPU as master.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    接口之间：通道A和B是Profinet IO，通道A为主站。通道A/B和HMI/诊断/工程笔记本是Profinet。通道A和Simotion是Profibus DP，通道A S7-CPU为主站。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>通信接口 (Interface)</th>
+                        <th>总线类型 (Bus Type)</th>
+                        <th>主从关系 (Master-Slave)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Channel A ↔ Channel B</td>
+                        <td>Profinet IO</td>
+                        <td>Channel A = Master</td>
+                    </tr>
+                    <tr>
+                        <td>Channel A/B ↔ HMI/Diagnostic</td>
+                        <td>Profinet</td>
+                        <td>- </td>
+                    </tr>
+                    <tr>
+                        <td>Channel A ↔ Simotion</td>
+                        <td>Profibus DP</td>
+                        <td>Channel A = Master</td>
+                    </tr>
+                    <tr>
+                        <td>Simotion ↔ Drive/Datarecorder</td>
+                        <td>Profibus or Profinet</td>
+                        <td>Simotion = Master</td>
+                    </tr>
+                    <tr>
+                        <td>Channel A/B ↔ Machine Control Periphery</td>
+                        <td>Profibus or Profinet</td>
+                        <td>Standard: Profibus</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第2.10节：Scalance交换机 -->
+        <div class="content-section" id="section2-10">
+            <div class="section-header">
+                <h2>2.10 Scalance Switch | Scalance交换机</h2>
+                <div class="subtitle">以太网通信核心组件</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Switch Specification | 交换机规格:</strong><br>
+                    All Ethernet and Profinet communication run via one Scalance switch in the TIA-WTC. It is a 12-port switch with one additional fiber optic connection (not used in standard configuration).
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    TIA-WTC中的所有以太网和Profinet通信都通过一个Scalance交换机运行。这是一个12端口交换机，带有一个额外的光纤连接（标准配置中未使用）。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2.11节：时间同步 -->
+        <div class="content-section" id="section2-11">
+            <div class="section-header">
+                <h2>2.11 Time Synchronization | 时间同步</h2>
+                <div class="subtitle">系统时间同步机制</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Synchronization Method | 同步方法:</strong><br>
+                    The CPU Channel A is time master. It can be set manually from an HMI-PCs or from the Diagnostic Notebook. Additionally, there is a chance of setting the time via a DCF77-signal. The time synchronization is done via the CPUs "Local time".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    CPU通道A是时间主站。可以手动从HMI-PC或诊断笔记本设置。此外，可以通过DCF77信号设置时间。时间同步通过CPU的"本地时间"完成。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>设备 (Device)</th>
+                        <th>同步方式 (Synchronization Method)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CPU Channel B</td>
+                        <td>NTP (网络时间协议)</td>
+                    </tr>
+                    <tr>
+                        <td>Simotion Channel A</td>
+                        <td>Profibus user data</td>
+                    </tr>
+                    <tr>
+                        <td>Brake System</td>
+                        <td>Profibus/Profinet user data</td>
+                    </tr>
+                    <tr>
+                        <td>HMI Devices & Diagnostic App</td>
+                        <td>"Area Pointers"</td>
+                    </tr>
+                    <tr>
+                        <td>ibaPDA-System (可选)</td>
+                        <td>"ibaBM-DP" or "ibaBM-PN"</td>
+                    </tr>
+                    <tr>
+                        <td>S7-1200F</td>
+                        <td>不需要同步</td>
+                    </tr>
+                    <tr>
+                        <td>Data concentrator (可选)</td>
+                        <td>Profibus user data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第2.12节：数据集中器 -->
+        <div class="content-section" id="section2-12">
+            <div class="section-header">
+                <h2>2.12 Data Concentrator (Option) | 数据集中器（可选）</h2>
+                <div class="subtitle">外部接口与OPC UA服务器</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Function | 功能:</strong><br>
+                    The data concentrator is a S7-1211C-CPU and serves as interface to extern (Customer, Winder App, etc.). The data concentrator is connected to the S7-1500 CPU channel A via Profibus. Profibus as interface assures that there is no possibility to get any access from extern to the TIA-WTC Channel A/B.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    数据集中器是S7-1211C-CPU，用作对外部（客户、提升机应用等）的接口。数据集中器通过Profibus连接到S7-1500 CPU通道A。Profibus作为接口确保不可能从外部访问TIA-WTC通道A/B。
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 安全特性：</strong><br>
+                • 使用Profibus接口，确保外部无法访问TIA-WTC内部网络<br>
+                • 在数据集中器上运行OPC UA服务器<br>
+                • 外部只能通过以太网使用OPC UA访问数据集中器
+            </div>
+        </div>
+
+        <!-- 第3章：软件描述 -->
+        <div class="content-section" id="section3-1">
+            <div class="section-header">
+                <h2>3. Software Description | 软件描述</h2>
+                <div class="subtitle">S7-1500软件模块架构</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Modularization Requirement | 模块化要求:</strong><br>
+                    Due to SIL3 requirements the software must be modularized. It is necessary to have defined interfaces between the modules.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    由于SIL3要求，软件必须模块化。模块之间必须有定义的接口。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3.1.1节：模块缩写 -->
+        <div class="content-section" id="section3-1-1">
+            <div class="section-header">
+                <h2>3.1.1 Abbreviations of Modules | 模块缩写</h2>
+                <div class="subtitle">DB结构命名规则</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>缩写 (Abbreviation)</th>
+                        <th>英文全称 (English)</th>
+                        <th>中文翻译 (Chinese)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SUP</td>
+                        <td>Supervisions</td>
+                        <td>监控功能</td>
+                    </tr>
+                    <tr>
+                        <td>MAC</td>
+                        <td>Machine Control</td>
+                        <td>机器控制</td>
+                    </tr>
+                    <tr>
+                        <td>SSS</td>
+                        <td>Shaft Signaling System</td>
+                        <td>井筒信号系统</td>
+                    </tr>
+                    <tr>
+                        <td>ENC</td>
+                        <td>Encoders</td>
+                        <td>编码器</td>
+                    </tr>
+                    <tr>
+                        <td>CLS</td>
+                        <td>Closed Loop Control</td>
+                        <td>闭环控制</td>
+                    </tr>
+                    <tr>
+                        <td>SUD</td>
+                        <td>Supervisions Drive</td>
+                        <td>传动监控</td>
+                    </tr>
+                    <tr>
+                        <td>SCO</td>
+                        <td>Safety Concept</td>
+                        <td>安全概念</td>
+                    </tr>
+                    <tr>
+                        <td>DIA</td>
+                        <td>Diagnostic Notebook</td>
+                        <td>诊断笔记本</td>
+                    </tr>
+                    <tr>
+                        <td>MES</td>
+                        <td>Message System</td>
+                        <td>消息系统</td>
+                    </tr>
+                    <tr>
+                        <td>MISC</td>
+                        <td>Miscellaneous</td>
+                        <td>杂项</td>
+                    </tr>
+                    <tr>
+                        <td>SIM</td>
+                        <td>Simulation</td>
+                        <td>仿真</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第3.1.2节：功能块名称缩写 -->
+        <div class="content-section" id="section3-1-2">
+            <div class="section-header">
+                <h2>3.1.2 Abbreviations of Block-Names | 功能块名称缩写</h2>
+                <div class="subtitle">软件块命名规则</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Naming Convention | 命名约定:</strong><br>
+                    The names of software-blocks are marked as follows: Main functions start with "M"; Help functions start with "H"; Normal datablocks start with "D"; Instance datablocks start with "I".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    软件块的名称标记如下：主功能以"M"开头；辅助功能以"H"开头；普通数据块以"D"开头；实例数据块以"I"开头。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>前缀 (Prefix)</th>
+                        <th>块类型 (Block Type)</th>
+                        <th>说明 (Description)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"M"</td>
+                        <td>Main functions (主功能)</td>
+                        <td>以"M"开头，如 M100, M200</td>
+                    </tr>
+                    <tr>
+                        <td>"H"</td>
+                        <td>Help functions (辅助功能)</td>
+                        <td>以"H"开头，如 H10, H20</td>
+                    </tr>
+                    <tr>
+                        <td>"D"</td>
+                        <td>Normal datablocks (普通数据块)</td>
+                        <td>以"D"开头，如 DB10, DB20</td>
+                    </tr>
+                    <tr>
+                        <td>"I"</td>
+                        <td>Instance datablocks (实例数据块)</td>
+                        <td>以"I"开头，如 DB100, DB200</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>💡 命名规则说明：</strong><br>
+                • 主功能块 (Main functions): 执行主要控制逻辑的功能块<br>
+                • 辅助功能块 (Help functions): 支持性、工具性功能块<br>
+                • 普通数据块 (Normal datablocks): 全局数据块<br>
+                • 实例数据块 (Instance datablocks): 与功能块关联的背景数据块
+            </div>
+        </div>
+
+        <!-- 第3.1.3节：主要模块 -->
+        <div class="content-section" id="section3-1-3">
+            <div class="section-header">
+                <h2>3.1.3 Main Modules | 主要模块</h2>
+                <div class="subtitle">S7-1500软件架构</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Module Structure | 模块结构:</strong><br>
+                    The software in the S7-1500s is divided in the following three Main modules (Number Range in brackets): Supervisions (100-199), Machine Control (200-299), Shaft Signaling System (300-399).
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    S7-1500中的软件分为以下三个主要模块（括号内为编号范围）：监控功能（100-199）、机器控制（200-299）、井筒信号系统（300-399）。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>模块 (Module)</th>
+                        <th>编号范围 (Number Range)</th>
+                        <th>内部结构 (Internal Structure)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Supervisions (监控)</td>
+                        <td>100-199</td>
+                        <td>
+                            x00: Calling Function (调用功能)<br>
+                            x09: Interface (接口)<br>
+                            x10-x19: Safety Concept (安全概念)<br>
+                            x20-x79: Logic (逻辑)<br>
+                            x80-x89: Safety Circuits (安全电路)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Machine Control (机器控制)</td>
+                        <td>200-299</td>
+                        <td>
+                            x00: Calling Function (调用功能)<br>
+                            x09: Interface (接口)<br>
+                            x10-x19: Safety Concept (安全概念)<br>
+                            x20-x79: Logic (逻辑)<br>
+                            x80-x89: Safety Circuits (安全电路)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Shaft Signaling System (井筒信号系统)</td>
+                        <td>300-399</td>
+                        <td>
+                            x00: Calling Function (调用功能)<br>
+                            x09: Interface (接口)<br>
+                            x10-x19: Safety Concept (安全概念)<br>
+                            x20-x79: Logic (逻辑)<br>
+                            x80-x89: Safety Circuits (安全电路)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="term-block">
+                <div class="term-title">📋 3.1.3.1 Supervisions (监控功能)</div>
+                <div class="term-en">• Called in FB100, approved by certification authority</div>
+                <div class="term-cn">• 在FB100中调用，经认证机构批准</div>
+                <div class="term-en">• Not supposed to be changed or modified, only parametrized via Excel-Tool</div>
+                <div class="term-cn">• 不应更改或修改，只能通过Excel工具参数化</div>
+                <div class="term-en">• Interface: FC109; DB109</div>
+                <div class="term-cn">• 接口：FC109；DB109</div>
+                <div class="term-en">• Has own three safety circuits (SAC, ESC, LOC) and safety concept</div>
+                <div class="term-cn">• 拥有自己的三个安全电路（SAC、ESC、LOC）和安全概念</div>
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 3.1.3.2 Machine Control (机器控制)</div>
+                <div class="term-en">• Called in FB200, must be adapted plant specific</div>
+                <div class="term-cn">• 在FB200中调用，必须适应特定工厂</div>
+                <div class="term-en">• Recommended to take the standard machine control</div>
+                <div class="term-cn">• 建议使用标准机器控制</div>
+                <div class="term-en">• Interface: FC209; DB209</div>
+                <div class="term-cn">• 接口：FC209；DB209</div>
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 3.1.3.3 Shaft Signaling System (井筒信号系统)</div>
+                <div class="term-en">• Called in FB300, must be adapted plant specific</div>
+                <div class="term-cn">• 在FB300中调用，必须适应特定工厂</div>
+                <div class="term-en">• Recommended to take the standard shaft signaling system</div>
+                <div class="term-cn">• 建议使用标准井筒信号系统</div>
+                <div class="term-en">• Interface: FC309; DB309</div>
+                <div class="term-cn">• 接口：FC309；DB309</div>
+            </div>
+        </div>
+
+        <!-- 第3.1.4节：附加模块 -->
+        <div class="content-section" id="section3-1-4">
+            <div class="section-header">
+                <h2>3.1.4 Additional Modules | 附加模块</h2>
+                <div class="subtitle">S7-1500附加功能模块</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>模块 (Module)</th>
+                        <th>编号范围 (Number Range)</th>
+                        <th>说明 (Description)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>System functions; Time synchronization</td>
+                        <td>000 – 009</td>
+                        <td>系统功能；时间同步</td>
+                    </tr>
+                    <tr>
+                        <td>Merge of Main Modules: Safety Concept</td>
+                        <td>010 – 019</td>
+                        <td>主模块合并：安全概念</td>
+                    </tr>
+                    <tr>
+                        <td>Merge of Main Modules: Safety Circuits</td>
+                        <td>080 – 089</td>
+                        <td>主模块合并：安全电路</td>
+                    </tr>
+                    <tr>
+                        <td>Bus Supervisions</td>
+                        <td>020 – 029</td>
+                        <td>总线监控</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnostic OBs</td>
+                        <td>030 – 039</td>
+                        <td>诊断组织块</td>
+                    </tr>
+                    <tr>
+                        <td>Communications - Sys A-B</td>
+                        <td>040 – 049</td>
+                        <td>通信 - 系统A-B</td>
+                    </tr>
+                    <tr>
+                        <td>Communications - Simotion</td>
+                        <td>050 – 059</td>
+                        <td>通信 - Simotion</td>
+                    </tr>
+                    <tr>
+                        <td>Communications - Brake</td>
+                        <td>060 – 069</td>
+                        <td>通信 - 制动</td>
+                    </tr>
+                    <tr>
+                        <td>Communications - Dataconcentrator</td>
+                        <td>070 – 079</td>
+                        <td>通信 - 数据集中器</td>
+                    </tr>
+                    <tr>
+                        <td>Communications - ibaPDA</td>
+                        <td>090 – 099</td>
+                        <td>通信 - ibaPDA</td>
+                    </tr>
+                    <tr>
+                        <td>Interface Visualization (HMI)</td>
+                        <td>400 – 499</td>
+                        <td>可视化接口（HMI）</td>
+                    </tr>
+                    <tr>
+                        <td>Interface Diagnostic Application</td>
+                        <td>500 – 599</td>
+                        <td>诊断应用接口</td>
+                    </tr>
+                    <tr>
+                        <td>Interface Message System</td>
+                        <td>600 – 899</td>
+                        <td>消息系统接口</td>
+                    </tr>
+                    <tr>
+                        <td>Library</td>
+                        <td>900 – 999</td>
+                        <td>库</td>
+                    </tr>
+                    <tr>
+                        <td>Encoders (Channel B only)</td>
+                        <td>1000 – 1099</td>
+                        <td>编码器（仅通道B）</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第3.1.4.1节：安全电路 -->
+        <div class="content-section" id="section3-1-4-1">
+            <div class="section-header">
+                <h2>3.1.4.1 Safety Circuits | 安全电路</h2>
+                <div class="subtitle">安全电路合并机制</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Circuit Structure | 电路结构:</strong><br>
+                    The three Safety Circuits (LOC, ESC, SAC) are split into three parts. Each of the three main software modules (supervisions, machine control, shaft signaling system) has its own separate three circuits. The three safety circuits of the three main modules are merged to three circuits (LOC, ESC, SAC) in the system function "Safety Circuits".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    三个安全电路（LOC、ESC、SAC）分为三个部分。三个主要软件模块（监控功能、机器控制、井筒信号系统）每个都有自己独立的三个电路。三个主要模块的三个安全电路在系统功能"Safety Circuits"中合并为三个电路（LOC、ESC、SAC）。
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 安全电路说明：</strong><br>
+                • LOC (Local Safety Circuit) - 本地安全电路<br>
+                • ESC (Emergency Stop Circuit) - 紧急停止电路<br>
+                • SAC (Safety Application Circuit) - 安全应用电路
+            </div>
+        </div>
+
+        <!-- 第3.1.4.2节：安全概念 -->
+        <div class="content-section" id="section3-1-4-2">
+            <div class="section-header">
+                <h2>3.1.4.2 Safety Concept | 安全概念</h2>
+                <div class="subtitle">安全概念合并机制</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Concept Structure | 概念结构:</strong><br>
+                    The Safety Concept is split into three parts. Each of the three main software modules (supervisions, machine control, shaft signaling system) has its own separate safety concept. The safety concept of the three main modules is merged to one safety concept in the system function "Safety Concept".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    安全概念分为三个部分。三个主要软件模块（监控功能、机器控制、井筒信号系统）每个都有自己独立的安全概念。三个主要模块的安全概念在系统功能"Safety Concept"中合并为一个安全概念。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3.1.4.3节：总线监控 -->
+        <div class="content-section" id="section3-1-4-3">
+            <div class="section-header">
+                <h2>3.1.4.3 Bus Supervisions | 总线监控</h2>
+                <div class="subtitle">Profibus和Profinet总线监控</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Supervision Function | 监控功能:</strong><br>
+                    The Bus supervisions can be used for Profibus and Profinet. In the standard the TIA-WTC is Profibus configured. The bus supervisions consist of standard TIA-Portal functions "UserDiag".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    总线监控可用于Profibus和Profinet。标准配置中TIA-WTC是Profibus配置。总线监控由标准TIA-Portal功能"UserDiag"组成。
+                </div>
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 标准配置监控的总线</div>
+                <div class="term-en">• Simotion D (Channel A only) - Simotion D（仅通道A）</div>
+                <div class="term-en">• Machine Control - 机器控制</div>
+                <div class="term-en">• Shaft Signaling System - 井筒信号系统</div>
+            </div>
+        </div>
+
+        <!-- 第3.1.4.4节：诊断组织块 -->
+        <div class="content-section" id="section3-1-4-4">
+            <div class="section-header">
+                <h2>3.1.4.4 Diagnostic OBs | 诊断组织块</h2>
+                <div class="subtitle">系统故障处理</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Fault Masking | 故障屏蔽:</strong><br>
+                    Some defined system faults should not cause the CPUs going to "Stop". Those faults are masked in the Diagnostic OBs (82, 83, 86, 122).
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    某些定义的系统故障不应导致CPU进入"停止"状态。这些故障在诊断组织块（82、83、86、122）中被屏蔽。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>组织块 (Organization Block)</th>
+                        <th>功能 (Function)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OB82</td>
+                        <td>Diagnostic alarm (诊断报警)</td>
+                    </tr>
+                    <tr>
+                        <td>OB83</td>
+                        <td>Insert/Remove module (插入/移除模块)</td>
+                    </tr>
+                    <tr>
+                        <td>OB86</td>
+                        <td>Rack or station failure (机架或站点故障)</td>
+                    </tr>
+                    <tr>
+                        <td>OB122</td>
+                        <td>I/O access error (IO访问错误)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第3.1.4.5节：通信 -->
+        <div class="content-section" id="section3-1-4-5">
+            <div class="section-header">
+                <h2>3.1.4.5 Communications | 通信</h2>
+                <div class="subtitle">系统间通信机制</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Communication Interfaces | 通信接口:</strong><br>
+                    CPU Channel A <-> CPU Channel B: The communication is Profinet IO with Channel A as master. CPU Channel A <-> Simotion: The communication is Profibus. Due to limited communication capabilities of the Simotion, Real signals are converted to Integer.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    CPU通道A <-> CPU通道B：通信是Profinet IO，通道A为主站。CPU通道A <-> Simotion：通信是Profibus。由于Simotion的通信能力有限，实数信号被转换为整数。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>通信对 (Communication Pair)</th>
+                        <th>总线类型 (Bus Type)</th>
+                        <th>数据块 (DB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Channel A ↔ Simotion</td>
+                        <td>Profibus</td>
+                        <td>
+                            Approved signals: DB51, DB59<br>
+                            Non-approved: DB52, DB58<br>
+                            Drive Signals: DB53, DB57
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Channel A/B ↔ Brake</td>
+                        <td>3 DP/DP-couplers</td>
+                        <td>
+                            1 DP/DP for ChA-Brake<br>
+                            1 DP/DP for ChB-Brake<br>
+                            1 DP/DP for Messages/HMI
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第3.1.4.6节：HMI接口 -->
+        <div class="content-section" id="section3-1-4-6">
+            <div class="section-header">
+                <h2>3.1.4.6 Interface Visualization (HMI) | 可视化接口</h2>
+                <div class="subtitle">HMI屏幕章节与数据结构</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>HMI Screen Chapters | HMI屏幕章节:</strong><br>
+                    The HMI is split in 8 screen chapters: Main Screen; Main Circuit; Voltage Distribution; Brake / Wheels; Plant On / Ready; Loading / Unloading; Shaft Signaling System; Messages.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    HMI分为8个屏幕章节：主屏幕；主电路；电压分配；制动/轮；设备开/就绪；装载/卸载；井筒信号系统；消息。
+                </div>
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 HMI数据结构</div>
+                <div class="term-en">• Header and every screen chapter has separate DBs</div>
+                <div class="term-cn">• 标题栏和每个屏幕章节都有独立的数据块</div>
+                <div class="term-en">• Every screen has a separate structure (STRUCT) within the DBs</div>
+                <div class="term-cn">• 每个屏幕在DB中都有独立的结构（STRUCT）</div>
+                <div class="term-en">• DB400 to DB408: Screen data blocks</div>
+                <div class="term-cn">• DB400到DB408：屏幕数据块</div>
+                <div class="term-en">• DB416: HMI-Parameter</div>
+                <div class="term-cn">• DB416：HMI参数</div>
+                <div class="term-en">• DB417: Coordination Interface</div>
+                <div class="term-cn">• DB417：协调接口</div>
+                <div class="term-en">• DB423: HMI Communication Faults</div>
+                <div class="term-cn">• DB423：HMI通信故障</div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 关键信息：</strong><br>
+                • 提升协议每20分钟存储在硬盘上<br>
+                • PC重启后从硬盘读回<br>
+                • 当提升容器通过井筒中间时计数提升次数
+            </div>
+        </div>
+
+        <!-- 第3.1.4.7节：诊断应用接口 -->
+        <div class="content-section" id="section3-1-4-7">
+            <div class="section-header">
+                <h2>3.1.4.7 Interface Diagnostic Application | 诊断应用接口</h2>
+                <div class="subtitle">诊断应用连接与参数</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Application Constraint | 应用约束:</strong><br>
+                    Since the diagnostic application has connections to and from the supervisions it must not be freely programmable anymore. The software is coded and only fits to the corresponding S7-Programm. If it does not correspond with the S7-programm it will not work anymore.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    由于诊断应用与监控功能有连接，它不能再自由编程。软件已编码，仅适用于相应的S7程序。如果与S7程序不对应，它将无法工作。
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ 重要说明：</strong><br>
+                • 只能通过参数设置将应用调整到特定工厂系统<br>
+                • 参数DB：DB538<br>
+                • 协调接口：DB540<br>
+                • 诊断应用版本必须与CPU用户软件版本匹配
+            </div>
+        </div>
+
+        <!-- 第3.1.4.8节：消息系统接口 -->
+        <div class="content-section" id="section3-1-4-8">
+            <div class="section-header">
+                <h2>3.1.4.8 Interface Message System | 消息系统接口</h2>
+                <div class="subtitle">消息逻辑与文本工程</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Message Logic | 消息逻辑:</strong><br>
+                    The messages logic is in FC850 to FC859. The message-texts are engineered in an Excel file. This file can be imported into the software. The Logic and the Message-text correspond as follows.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    消息逻辑在FC850到FC859中。消息文本在Excel文件中工程化。该文件可以导入到软件中。逻辑和消息文本的对应关系如下。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>功能块 (Function Block)</th>
+                        <th>消息范围 (Message Range)</th>
+                        <th>说明 (Description)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FC850 (Ch A/B)</td>
+                        <td>N1-N5</td>
+                        <td>
+                            N1: Mine Winder Supervisions (Simatic S7)<br>
+                            N2: Vmax Reduction<br>
+                            N3: Mine Winder CLC (Motion Module MM)<br>
+                            N4: System Messages Simatic S7<br>
+                            N5: Communications internally
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FC851</td>
+                        <td>N6-N10</td>
+                        <td>
+                            N6: Safety Concept, Group Faults<br>
+                            N7: Safety Concept, Faults Inputhardwaretest<br>
+                            N8: Wire-Break Supervisions (Ch A only)<br>
+                            N9: Antivalence Supervision (Ch A only)<br>
+                            N10: Messages Ch A and Ch B (Ch A only)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FC852</td>
+                        <td>N11-N12</td>
+                        <td>
+                            N11: Communications Externally<br>
+                            N12: Sensors, Closed Loop Control
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FC853</td>
+                        <td>N13</td>
+                        <td>Messages Machine Control</td>
+                    </tr>
+                    <tr>
+                        <td>FC854</td>
+                        <td>N14</td>
+                        <td>Messages Shaft Signaling System</td>
+                    </tr>
+                    <tr>
+                        <td>FC856</td>
+                        <td>N15</td>
+                        <td>Messages Brake (Ch A only)</td>
+                    </tr>
+                    <tr>
+                        <td>FC859</td>
+                        <td>N16</td>
+                        <td>Messages Drive (Ch A only)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第3.1.4.9节：库 -->
+        <div class="content-section" id="section3-1-4-9">
+            <div class="section-header">
+                <h2>3.1.4.9 Library | 库</h2>
+                <div class="subtitle">非提升机特定功能块集合</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Library Organization | 库组织:</strong><br>
+                    Non-Mine Winder specific blocks are collected in a register "900_Library". All those blocks start with "L".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    非矿井提升机特定的功能块收集在寄存器"900_Library"中。所有这些功能块以"L"开头。
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 关键信息：</strong><br>
+                • 编号范围：900-999<br>
+                • 包含所有非提升机特定的通用功能块<br>
+                • 所有块的命名以"L"开头
+            </div>
+        </div>
+
+        <!-- 第3.1.4.10节：编码器 -->
+        <div class="content-section" id="section3-1-4-10">
+            <div class="section-header">
+                <h2>3.1.4.10 Encoders | 编码器</h2>
+                <div class="subtitle">通道B编码器功能（仅通道B）</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Encoder Function in Channel B | 通道B中的编码器功能:</strong><br>
+                    The Encoder function in CPU Channel B is basically a "copy" of the encoder function in the Simotion D of Channel A (FPO1 and FPO2). The only differences between the software are programming language, encoder input blocks, and cycle time.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    CPU通道B中的编码器功能基本上是通道A中Simotion D的编码器功能的"复制"（FPO1和FPO2）。软件之间的唯一区别是编程语言、编码器输入块和循环时间。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>特性 (Characteristic)</th>
+                        <th>Simotion D (Channel A)</th>
+                        <th>CPU Channel B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Programming Language (编程语言)</td>
+                        <td>CFC / FUP</td>
+                        <td>CFC / FUP</td>
+                    </tr>
+                    <tr>
+                        <td>Encoder Input Blocks (编码器输入块)</td>
+                        <td>SMC30</td>
+                        <td>PosInput</td>
+                    </tr>
+                    <tr>
+                        <td>Cycle Time - Pulse Encoders (循环时间-脉冲编码器)</td>
+                        <td>5 ms</td>
+                        <td>7.5 ms</td>
+                    </tr>
+                    <tr>
+                        <td>Cycle Time - Synchronizing Switches (循环时间-同步开关)</td>
+                        <td>1 ms</td>
+                        <td>2.5 ms</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>💡 参数设置：</strong><br>
+                • 参数DB：Conveyance 1 (DB1011)<br>
+                • 参数DB：Conveyance 2 (DB1012)<br>
+                • 软件只需参数化，无需修改
+            </div>
+        </div>
+
+        <!-- 第3.2节：Simotion软件模块 -->
+        <div class="content-section" id="section3-2">
+            <div class="section-header">
+                <h2>3.2 Software Modules Simotion | Simotion软件模块</h2>
+                <div class="subtitle">Simotion D445软件架构</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Module Overview | 模块概览:</strong><br>
+                    The software in the Simotion is split in the following modules: Encoders (SEN), Closed Loop Control (CLC), Drive Supervisions (SUD), Drive Interface (DRV), System Functions (SYS), Simulations (SIM).
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    Simotion中的软件分为以下模块：编码器（SEN）、闭环控制（CLC）、传动监控（SUD）、传动接口（DRV）、系统功能（SYS）、仿真（SIM）。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>模块 (Module)</th>
+                        <th>Chart名称 (Chart Name)</th>
+                        <th>说明 (Description)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Encoders (SEN)<br>编码器</td>
+                        <td>FPO1, FPO2, FPOM, HWSS</td>
+                        <td>编码器功能和硬件同步开关</td>
+                    </tr>
+                    <tr>
+                        <td>Closed Loop Control (CLC)<br>闭环控制</td>
+                        <td>SSEL, SLOW, FPOS, PREC, SCON, (DCON), CLTH, LOAD, SABR</td>
+                        <td>闭环控制功能</td>
+                    </tr>
+                    <tr>
+                        <td>Drive Supervisions (SUD)<br>传动监控</td>
+                        <td>SUP</td>
+                        <td>传动监控功能</td>
+                    </tr>
+                    <tr>
+                        <td>Drive Interface (DRV)<br>传动接口</td>
+                        <td>KOMDAC, KOMDDC</td>
+                        <td>传动接口（必须适应特定工厂的传动系统）</td>
+                    </tr>
+                    <tr>
+                        <td>System Functions (SYS)<br>系统功能</td>
+                        <td>SYS, HWIO, (F)S7IN, (F)S7OU, KOMIBA</td>
+                        <td>系统功能</td>
+                    </tr>
+                    <tr>
+                        <td>Simulations (SIM)<br>仿真</td>
+                        <td>SIMDR, SIMFM</td>
+                        <td>仿真（非标准组件）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong⚠️ 重要说明：</strong><br>
+                • 只有"Drive Interface"必须适应特定工厂的传动系统<br>
+                • 所有其他软件模块只需参数化<br>
+                • 所有以"F"开头的chart绝对不能更改（经认证机构批准）
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 模块详细说明</div>
+                <div class="term-en">• <strong>Encoders (SEN):</strong> FPO1, FPO2 - 编码器处理；FPOM - 参考值生成器；HWSS - 硬件同步开关</div>
+                <div class="term-cn">• <strong>编码器 (SEN):</strong> FPO1, FPO2 - 编码器处理；FPOM - 参考值生成器；HWSS - 硬件同步开关</div>
+                <div class="term-en">• <strong>Closed Loop Control (CLC):</strong> 闭环控制算法，包含选择、慢速、定位、精度、控制等功能</div>
+                <div class="term-cn">• <strong>闭环控制 (CLC):</strong> 闭环控制算法，包含选择、慢速、定位、精度、控制等功能</div>
+                <div class="term-en">• <strong>Drive Supervisions (SUD):</strong> 传动系统监控功能，确保传动运行安全</div>
+                <div class="term-cn">• <strong>传动监控 (SUD):</strong> 传动系统监控功能，确保传动运行安全</div>
+                <div class="term-en">• <strong>Drive Interface (DRV):</strong> 传动接口，必须根据特定传动系统调整</div>
+                <div class="term-cn">• <strong>传动接口 (DRV):</strong> 传动接口，必须根据特定传动系统调整</div>
+            </div>
+        </div>
+
+        <!-- 第3.3节：S7-1200F软件模块 -->
+        <div class="content-section" id="section3-3">
+            <div class="section-header">
+                <h2>3.3 Software Modules S7-1200F | S7-1200F软件模块</h2>
+                <div class="subtitle">故障安全CPU软件配置</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Software Variations | 软件变体:</strong><br>
+                    The software is not really plant specific, but there are three variations of that software: System Supervision only; System Supervision and shaft limit switch top supervision; System Supervision and shaft limit switch top & bottom supervision.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    该软件并不是真正特定于工厂的，但该软件有三种变体：仅系统监控；系统监控和井筒限位开关顶部监控；系统监控和井筒限位开关顶部及底部监控。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>软件变体 (Software Variation)</th>
+                        <th>功能 (Function)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Variation 1</td>
+                        <td>System Supervision only (仅系统监控)</td>
+                    </tr>
+                    <tr>
+                        <td>Variation 2</td>
+                        <td>System Supervision + shaft limit switch top (系统监控+井筒限位开关顶部)</td>
+                    </tr>
+                    <tr>
+                        <td>Variation 3</td>
+                        <td>System Supervision + shaft limit switch top & bottom (系统监控+井筒限位开关顶部和底部)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="term-block">
+                <div class="term-title">📋 系统监控功能</div>
+                <div class="term-en">• The software supervises the supervision functions of CPU Channel A</div>
+                <div class="term-cn">• 软件监控CPU通道A的监控功能</div>
+                <div class="term-en">• In case of a fault binary Failsafe outputs trip the hardware safety circuit</div>
+                <div class="term-cn">• 故障时，二进制故障安全输出切断硬件安全电路</div>
+                <div class="term-en">• Message-bits will be send to CPU Channel A and Channel B</div>
+                <div class="term-cn">• 消息位将发送到CPU通道A和通道B</div>
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 井筒限位开关监控功能</div>
+                <div class="term-en">• The Software supervises the shaft limit switches</div>
+                <div class="term-cn">• 软件监控井筒限位开关</div>
+                <div class="term-en">• In case of a fault binary Failsafe outputs trip the hardware safety circuit</div>
+                <div class="term-cn">• 故障时，二进制故障安全输出切断硬件安全电路</div>
+                <div class="term-en">• Messages need to be created in the CPU Channel A and Channel B</div>
+                <div class="term-cn">• 需要在CPU通道A和通道B中创建消息</div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 关键信息：</strong><br>
+                • 软件只需加载到S7-1200F CPU上<br>
+                • 根据SIL3要求选择相应的软件变体<br>
+                • 故障安全输出直接控制硬件安全电路
+            </div>
+        </div>
+
+        <!-- 第3.4节：S7-1200数据集中器软件 -->
+        <div class="content-section" id="section3-4">
+            <div class="section-header">
+                <h2>3.4 Software Modules S7-1200 Data Concentrator | S7-1200数据集中器软件模块</h2>
+                <div class="subtitle">数据集中器软件架构</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Software Structure | 软件结构:</strong><br>
+                    The software is split into three parts: Interface to TIA-WTC; Interface to Mine Winder App; Interface to external (Customer).
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    该软件分为三个部分：与TIA-WTC的接口；与矿井提升机应用的接口；与外部（客户）的接口。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>接口模块 (Interface Module)</th>
+                        <th>说明 (Description)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Interface to TIA-WTC</td>
+                        <td>与TIA-WTC的接口（通过Profibus）</td>
+                    </tr>
+                    <tr>
+                        <td>Interface to Mine Winder App</td>
+                        <td>与矿井提升机应用的接口</td>
+                    </tr>
+                    <tr>
+                        <td>Interface to external (Customer)</td>
+                        <td>与外部（客户）的接口（通过OPC UA）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ 安全特性：</strong><br>
+                • 使用Profibus接口，确保外部无法访问TIA-WTC内部网络<br>
+                • 在数据集中器上运行OPC UA服务器<br>
+                • 外部只能通过以太网使用OPC UA访问数据集中器
+            </div>
+        </div>
+
+        <!-- 第4章：软件处理 -->
+        <div class="content-section" id="section4-1">
+            <div class="section-header">
+                <h2>4. Software Handling | 软件处理</h2>
+                <div class="subtitle">SIL3要求与软件管理</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Centralized Software Administration | 集中式软件管理:</strong><br>
+                    SIL3 requirements make it necessary to have a centralized software administration. Improvements and changes must not be done from others than the administrators in accordance with a certification authority. The distribution of the software and all versions must be trailed and documented.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    SIL3要求必须进行集中式软件管理。改进和更改必须由管理员根据认证机构进行，其他人不得进行。软件的所有版本分发必须进行追踪和记录。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第4.2节：受保护软件 -->
+        <div class="content-section" id="section4-2">
+            <div class="section-header">
+                <h2>4.2 Protected Software | 受保护软件</h2>
+                <div class="subtitle">各CPU中的受保护软件模块</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Protected Components | 受保护组件:</strong><br>
+                    Due to SIL3 requirements, certain parts of the software are protected and cannot be modified without authorization from the software administration.
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    由于SIL3要求，软件的某些部分受到保护，未经软件管理部门授权不得修改。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>CPU/系统</th>
+                        <th>受保护模块</th>
+                        <th>保护级别</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3">S7-1500</td>
+                        <td>Supervisions (监控功能)</td>
+                        <td>
+                            • Safety concept (安全概念)<br>
+                            • Logic (逻辑)<br>
+                            • Safety circuits (安全电路)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Machine Control (机器控制)</td>
+                        <td>• Safety concept (partly) (安全概念-部分)</td>
+                    </tr>
+                    <tr>
+                        <td>Shaft Signaling System (井筒信号系统)</td>
+                        <td>• Safety concept (partly) (安全概念-部分)</td>
+                    </tr>
+                    <tr>
+                        <td>Simotion</td>
+                        <td>
+                            • Encoders (编码器)<br>
+                            • Reference Value Generator (参考值生成器)<br>
+                            • Interface Encoders & Supervisions (接口编码器和监控)
+                        </td>
+                        <td>完全受保护 (F-charts)</td>
+                    </tr>
+                    <tr>
+                        <td>S7-1200F</td>
+                        <td>Entire Software (整个软件)</td>
+                        <td>仅提供CPU加载软件</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnostic Application (诊断应用)</td>
+                        <td>Only fits to corresponding S7-program (仅适配相应的S7程序)</td>
+                        <td>版本绑定</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ 重要说明：</strong><br>
+                • 所有以"F"开头的Simotion charts都经过认证机构批准，绝对不能更改<br>
+                • 需要修改受保护部分时，必须向软件管理部门申请<br>
+                • 诊断应用与S7程序版本严格绑定
+            </div>
+        </div>
+
+        <!-- 第4.3节：系统软件 -->
+        <div class="content-section" id="section4-3">
+            <div class="section-header">
+                <h2>4.3 System Software | 系统软件</h2>
+                <div class="subtitle">编程与调试所需系统软件</div>
+            </div>
+
+            <div class="bilingual-block">
+                <div class="english-text">
+                    <strong>Required Software | 所需软件:</strong><br>
+                    For programming and commissioning the following system software is necessary. The software versions are plant individually and basically depend on the drive software "Simotion Scout" and drive panel "TIA-Portal WinCC Advanced".
+                </div>
+                <div class="chinese-text">
+                    <strong>中文翻译：</strong><br>
+                    为了编程和调试，需要以下系统软件。软件版本因工厂而异，基本上取决于传动软件"Simotion Scout"和传动面板"TIA-Portal WinCC Advanced"。
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>组件 (Component)</th>
+                        <th>所需系统软件 (Required System Software)</th>
+                        <th>用途 (Purpose)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>S7-1500</td>
+                        <td>TIA-Portal Step 7 Professional</td>
+                        <td>编程与工程 (Programming & Engineering)</td>
+                    </tr>
+                    <tr>
+                        <td>Simotion</td>
+                        <td>Simotion Scout, Simotion DCC</td>
+                        <td>运动控制编程 (Motion Control Programming)</td>
+                    </tr>
+                    <tr>
+                        <td>S7-1200F</td>
+                        <td>TIA-Portal Step 7 Safety (Engineering only)</td>
+                        <td>故障安全编程 (Safety Programming)</td>
+                    </tr>
+                    <tr>
+                        <td>HMI</td>
+                        <td>TIA-Portal WinCC Advanced (Engineering, Runtime)</td>
+                        <td>人机界面工程与运行 (HMI Engineering & Runtime)</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnostic Notebook</td>
+                        <td>TIA-Portal WinCC Advanced (Runtime)</td>
+                        <td>诊断应用运行环境 (Diagnostic App Runtime)</td>
+                    </tr>
+                    <tr>
+                        <td>Data recorder (数据记录仪)</td>
+                        <td>ibaPDA, ibaAnalyzer</td>
+                        <td>数据采集与分析 (Data Acquisition & Analysis)</td>
+                    </tr>
+                    <tr>
+                        <td>Data concentrator (数据集中器)</td>
+                        <td>TIA-Portal Step 7</td>
+                        <td>编程与工程 (Programming & Engineering)</td>
+                    </tr>
+                    <tr>
+                        <td>Parameter Setting (参数设置)</td>
+                        <td>Microsoft Excel</td>
+                        <td>参数设置与消息处理 (Parameter & Message Handling)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>💡 版本依赖关系：</strong><br>
+                • 基础：传动软件 "Simotion Scout" 和传动面板 "TIA-Portal WinCC Advanced"<br>
+                • 所有其他软件需要适应这两个基础软件<br>
+                • 软件版本因工厂而异，必须匹配
+            </div>
+
+            <div class="term-block">
+                <div class="term-title">📋 完整学习手册章节索引</div>
+                <div class="term-en">✅ Chapter 1: Preamble (前言)</div>
+                <div class="term-cn">✅ 第1章：前言</div>
+                <div class="term-en">✅ Chapter 2: General System Description (系统总体描述)</div>
+                <div class="term-cn">✅ 第2章：系统总体描述（2.1-2.12全部完成）</div>
+                <div class="term-en">✅ Chapter 3: Software Description (软件描述)</div>
+                <div class="term-cn">✅ 第3章：软件描述（3.1-3.4全部完成）</div>
+                <div class="term-en">✅ Chapter 4: Software Handling (软件处理)</div>
+                <div class="term-cn">✅ 第4章：软件处理（4.1-4.3全部完成）</div>
+                <br>
+                <div class="term-en"><strong>📄 Document completed: 19 pages, all chapters finished!</strong></div>
+                <div class="term-cn"><strong>📄 文档已完成：19页，所有章节已完成！</strong></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 导航切换功能
+        function toggleNav(navId) {
+            const navItems = document.getElementById(navId);
+            if (navItems) {
+                navItems.classList.toggle('active');
+            }
+        }
+
+        // 显示章节内容
+        function showSection(sectionId) {
+            // 隐藏所有章节
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 显示选中的章节
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // 更新导航项状态
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+        }
+
+        // 页面加载时默认展开所有导航，并显示第一章
+        window.onload = function() {
+            toggleNav('nav1');
+            toggleNav('nav2');
+            toggleNav('nav3');
+            toggleNav('nav4');
+            
+            // 默认显示第一章
+            showSection('section1');
+        };
+    </script>
+</body>
+</html>
+
+    </div>
+
+    <script>
+        // 导航切换功能
+        function toggleNav(navId) {
+            const navItems = document.getElementById(navId);
+            if (navItems) {
+                navItems.classList.toggle('active');
+            }
+        }
+
+        // 显示章节内容
+        function showSection(sectionId) {
+            // 隐藏所有章节
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 显示选中的章节
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // 更新导航项状态
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+        }
+
+        // 页面加载时默认展开所有导航
+        window.onload = function() {
+            toggleNav('nav1');
+            toggleNav('nav2');
+            toggleNav('nav3');
+            toggleNav('nav4');
+            
+            // 默认显示第一章
+            showSection('section1');
+        };
+    </script>
+</body>
+</html>

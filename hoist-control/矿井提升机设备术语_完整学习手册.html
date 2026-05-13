@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>矿井提升机设备术语和文件 - 交互式学习手册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --highlight: #e67e22;
+            --success: #27ae60;
+            --bg: #ecf0f1;
+            --text: #2c3e50;
+            --sidebar-width: 320px;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--bg);
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--primary);
+            color: white;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            background: rgba(0,0,0,0.15);
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9em;
+            opacity: 0.85;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .nav-section {
+            margin-bottom: 10px;
+        }
+
+        .nav-section-title {
+            padding: 12px 25px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-section-title:hover {
+            background: rgba(255,255,255,0.08);
+            border-left-color: var(--accent);
+        }
+
+        .nav-section-title.active {
+            background: rgba(52, 152, 219, 0.2);
+            border-left-color: var(--accent);
+        }
+
+        .nav-section-title .arrow {
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .nav-section-title.active .arrow {
+            transform: rotate(90deg);
+        }
+
+        .nav-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .nav-items.active {
+            max-height: 2000px;
+        }
+
+        .nav-item {
+            padding: 10px 25px 10px 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            font-size: 0.88em;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.06);
+            border-left-color: var(--highlight);
+            padding-left: 55px;
+        }
+
+        .nav-item.active {
+            background: rgba(52, 152, 219, 0.25);
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1300px;
+        }
+
+        .content-section {
+            margin-bottom: 70px;
+            background: white;
+            border-radius: 12px;
+            padding: 45px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .section-header h2 {
+            font-size: 2.2em;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section-header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .content-block {
+            margin: 30px 0;
+        }
+
+        .content-block h3 {
+            font-size: 1.6em;
+            color: var(--secondary);
+            margin-bottom: 18px;
+            padding-left: 15px;
+            border-left: 4px solid var(--highlight);
+        }
+
+        .content-block p {
+            margin-bottom: 16px;
+            line-height: 1.9;
+            color: #34495e;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .symbol-card {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .symbol-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .symbol-card h4 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: var(--highlight);
+            font-weight: 700;
+        }
+
+        .symbol-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95em;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .info-box h4 {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 1.15em;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .example-box {
+            background: #fff3e0;
+            border-left: 4px solid var(--highlight);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .example-box h4 {
+            color: var(--highlight);
+            margin-bottom: 12px;
+            font-size: 1.15em;
+        }
+
+        .example-box ul {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .model-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .model-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .model-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .model-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .pdf-image {
+            max-width: 100%;
+            height: auto;
+            margin: 25px 0;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pdf-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            border-color: var(--accent);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.92em;
+        }
+
+        .quiz-box {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .quiz-box h4 {
+            color: white;
+            margin-bottom: 18px;
+            font-size: 1.25em;
+        }
+
+        .quiz-options {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .quiz-options li {
+            padding: 12px 18px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-options li:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .quiz-options li.correct {
+            background: rgba(39, 174, 96, 0.3);
+            border-color: var(--success);
+        }
+
+        .quiz-options li.incorrect {
+            background: rgba(231, 76, 60, 0.3);
+            border-color: #e74c3c;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.92);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 88%;
+            max-height: 88%;
+            margin-top: 3%;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--highlight);
+            transform: scale(1.2);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.4s;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 25px 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1500;
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 12px 18px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1.2em;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 移动端菜单按钮 -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- 左侧导航栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>📚 学习导航</h1>
+            <p>矿井提升机设备术语</p>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title active" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>1. 符号系统</span>
+                </div>
+                <div class="nav-items active">
+                    <div class="nav-item active" onclick="scrollToSection('section1')">1.1 符号概述</div>
+                    <div class="nav-item" onclick="scrollToSection('section1-1')">1.2 符号含义</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>2. 功能标记 (=)</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" onclick="scrollToSection('section2')">2.1 功能标记结构</div>
+                    <div class="nav-item" onclick="scrollToSection('section2-1')">2.2 功能组列表</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>3. 位置标记 (+)</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" onclick="scrollToSection('section3')">3.1 位置标记结构</div>
+                    <div class="nav-item" onclick="scrollToSection('section3-1')">3.2 位置列表</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>4. 型号标记 (-)</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" onclick="scrollToSection('section4')">4.1 型号标记结构</div>
+                    <div class="nav-item" onclick="scrollToSection('section4-1')">4.2 型号分类 A-N</div>
+                    <div class="nav-item" onclick="scrollToSection('section4-2')">4.3 型号分类 P-Z</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>5. 连接标记 (:)</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" onclick="scrollToSection('section5')">5.1 连接标记结构</div>
+                    <div class="nav-item" onclick="scrollToSection('section5-1')">5.2 连接示例</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>6. 电缆标记 (W)</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" onclick="scrollToSection('section6')">6.1 电缆标记结构</div>
+                    <div class="nav-item" onclick="scrollToSection('section6-1')">6.2 电缆示例</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" onclick="toggleNavSection(this)">
+                    <span class="arrow">▶</span>
+                    <span>7. 电位标记</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" onclick="scrollToSection('section7')">7.1 电位标记结构</div>
+                    <div class="nav-item" onclick="scrollToSection('section7-1')">7.2 电位示例</div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 第1章：符号系统 -->
+        <div class="content-section" id="section1">
+            <div class="section-header">
+                <h2>1. 符号系统概述</h2>
+                <p class="subtitle">设备术语中的符号含义</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 核心概念</h3>
+                <p>在矿井提升机设备的技术文档中，使用特定的符号来标识不同类型的设备、位置和连接关系。每个标记都由一串数字和字母组成，前面带有特定的符号来标识其类型。</p>
+                
+                <div class="info-box">
+                    <h4>💡 关键要点</h4>
+                    <ul>
+                        <li><strong>四种基本符号</strong>：= (功能)、+ (位置)、- (型号)、: (连接)</li>
+                        <li><strong>符号作用</strong>：将标记的类型清晰分开</li>
+                        <li><strong>组合使用</strong>：可以组合使用以标识复杂的设备关系</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>🔣 符号系统详解</h3>
+                <p>我们使用下列符号来标记不同类型的设备元素：</p>
+                
+                <div class="symbol-grid">
+                    <div class="symbol-card">
+                        <h4>=</h4>
+                        <p><strong>功能 (Function)</strong></p>
+                        <p>表示设备中不同的技术元件（功能组）</p>
+                    </div>
+
+                    <div class="symbol-card" style="background: var(--secondary);">
+                        <h4>+</h4>
+                        <p><strong>位置 (Location)</strong></p>
+                        <p>表示设备在本机中所处的位置</p>
+                    </div>
+
+                    <div class="symbol-card" style="background: #16a085;">
+                        <h4>-</h4>
+                        <p><strong>型号 (Type)</strong></p>
+                        <p>用于识别装置的型号</p>
+                    </div>
+
+                    <div class="symbol-card" style="background: #8e44ad;">
+                        <h4>:</h4>
+                        <p><strong>连接 (Connection)</strong></p>
+                        <p>表示装置的接线端</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block" id="section1-1">
+                <h3>📋 标记示例</h3>
+                <p>以下是设备标记的实际应用示例：</p>
+                
+                <div class="example-box">
+                    <h4>📋 实际应用范例</h4>
+                    <ul style="margin-left: 20px; line-height: 2.2;">
+                        <li><strong>控制柜范例：</strong> +1G51</li>
+                        <li><strong>控制柜中的硬件模块范例：</strong> =1U132 - A10</li>
+                        <li><strong>电缆范例：</strong> =1U132 - W010</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_3_img_1.png" alt="设备术语符号说明" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图1-1：设备术语中的符号说明（第3页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #1</h4>
+                <p>问题：符号 "=" 在设备术语中表示什么含义？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, false)">A. 位置</li>
+                    <li onclick="checkAnswer(this, true)">B. 功能</li>
+                    <li onclick="checkAnswer(this, false)">C. 型号</li>
+                    <li onclick="checkAnswer(this, false)">D. 连接</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第2章：功能标记 -->
+        <div class="content-section" id="section2">
+            <div class="section-header">
+                <h2>2. 功能标记 (=)</h2>
+                <p class="subtitle">识别设备的功能组</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 功能标记的结构</h3>
+                <p>标记"功能"表示设备中不同的<strong>技术元件</strong>（功能组）。通过功能标记，可以清晰地识别设备的不同功能模块及其相互关系。</p>
+                
+                <div class="info-box">
+                    <h4>💡 功能标记的组成</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>功能组识别号</strong>：用于区分不同的功能组</li>
+                        <li><strong>功能组</strong>：工艺相同的设备分类</li>
+                        <li><strong>差别标识</strong>：用于区分几种工艺相同的矿井提升机</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_5_img_1.png" alt="功能标记结构" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图2-1：功能标记的结构说明（第5页）</p>
+
+            <div class="content-block" id="section2-1">
+                <h3>📋 功能组列表</h3>
+                <p>本设备具有下列功能组，每个功能组都有特定的标识符和应用场景：</p>
+                
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>标记</th>
+                            <th>名称</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>=A...</strong></td>
+                            <td>概览</td>
+                            <td>与其他控制室的电缆连接</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=AE...</strong></td>
+                            <td>低压单极图</td>
+                            <td>低压系统单极图</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=E...</strong></td>
+                            <td>低压</td>
+                            <td>低压电气系统</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=G...</strong></td>
+                            <td>功率电子部件</td>
+                            <td>起重电动机</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=N...</strong></td>
+                            <td>驾驶台</td>
+                            <td>机器控制</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=U...</strong></td>
+                            <td>提升机控制器</td>
+                            <td>电路图</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=AU...</strong></td>
+                            <td>提升机控制器</td>
+                            <td>简图</td>
+                        </tr>
+                        <tr>
+                            <td><strong>=Y...</strong></td>
+                            <td>矿井信号系统</td>
+                            <td>信号传输系统</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <img src="pdf3_images/page_7_img_1.png" alt="功能组列表" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图2-2：功能组详细列表（第7页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #2</h4>
+                <p>问题：功能标记 "=G..." 表示什么内容？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, false)">A. 低压</li>
+                    <li onclick="checkAnswer(this, false)">B. 驾驶台</li>
+                    <li onclick="checkAnswer(this, true)">C. 功率电子部件/起重电动机</li>
+                    <li onclick="checkAnswer(this, false)">D. 矿井信号系统</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第3章：位置标记 -->
+        <div class="content-section" id="section3">
+            <div class="section-header">
+                <h2>3. 位置标记 (+)</h2>
+                <p class="subtitle">标识设备所处的位置</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 位置标记的结构</h3>
+                <p>标记"位置"表示设备在本机中所处的<strong>位置</strong>。此位置可为地形位置、一座建筑物、一个房间等。通过位置标记，可以清晰地识别设备的物理安装位置。</p>
+                
+                <div class="info-box">
+                    <h4>💡 位置标记的组成</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>位置识别号</strong>：用于区分不同的位置</li>
+                        <li><strong>地形位置</strong>：设备安装的物理位置</li>
+                        <li><strong>层次标记</strong>：安装于塔架上的机器的层次标记</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_9_img_1.png" alt="位置标记结构" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图3-1：位置标记的结构说明（第9页）</p>
+
+            <div class="content-block" id="section3-1">
+                <h3>📋 位置列表</h3>
+                <p>本设备分布在以下位置，每个位置都有特定的标识符：</p>
+                
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>标记</th>
+                            <th>名称</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>+x.B...</strong></td>
+                            <td>激励-/电网变压器</td>
+                            <td>电源变压器位置</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.A...</strong></td>
+                            <td>定子驱动室</td>
+                            <td>电机驱动室</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.F...</strong></td>
+                            <td>低压室</td>
+                            <td>低压电气设备室</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.G...</strong></td>
+                            <td>可编程逻辑控制室</td>
+                            <td>PLC控制室</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.H...</strong></td>
+                            <td>提升机控制室</td>
+                            <td>主控室</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.P...</strong></td>
+                            <td>驾驶台</td>
+                            <td>操作台位置</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.S...</strong></td>
+                            <td>矿井信号系统室</td>
+                            <td>信号系统室</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+x.T...</strong></td>
+                            <td>起重电机、滚筒、制动元件</td>
+                            <td>机械传动部分</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <img src="pdf3_images/page_11_img_1.png" alt="位置列表" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图3-2：位置详细列表（第11页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #3</h4>
+                <p>问题：位置标记 "+x.H..." 表示什么位置？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, false)">A. 低压室</li>
+                    <li onclick="checkAnswer(this, true)">B. 提升机控制室</li>
+                    <li onclick="checkAnswer(this, false)">C. 驾驶台</li>
+                    <li onclick="checkAnswer(this, false)">D. 起重电机</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第4章：型号标记 -->
+        <div class="content-section" id="section4">
+            <div class="section-header">
+                <h2>4. 型号标记 (-)</h2>
+                <p class="subtitle">识别装置的型号</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 型号标记的结构</h3>
+                <p>标记"型号"用于识别装置的<strong>型号</strong>。通过型号标记，可以清晰地识别设备中每个装置的具体型号和规格。</p>
+                
+                <div class="info-box">
+                    <h4>💡 型号标记的组成</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>型号识别字母</strong>：用于区分不同类型的装置</li>
+                        <li><strong>图中识别号</strong>：装置在图中的编号</li>
+                        <li><strong>型号分类</strong>：从A到Z的分类系统</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_13_img_1.png" alt="型号标记结构" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图4-1：型号标记的结构说明（第13页）</p>
+
+            <div class="content-block" id="section4-1">
+                <h3>📋 型号分类 A-N</h3>
+                <p>这些装置分为以下部件（A-N分类）：</p>
+                
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>标记</th>
+                            <th>装置类型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>-A...</strong></td>
+                            <td>电子装置、子电子装置</td>
+                            <td>电子控制模块</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-B...</strong></td>
+                            <td>变频器</td>
+                            <td>频率转换装置</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-C...</strong></td>
+                            <td>电容器</td>
+                            <td>电容元件</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-D...</strong></td>
+                            <td>二进制元件，延迟元件，存储元件</td>
+                            <td>逻辑控制元件</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-E...</strong></td>
+                            <td>默认系统设定</td>
+                            <td>系统默认配置</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-F...</strong></td>
+                            <td>保护装置</td>
+                            <td>电气保护设备</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-G...</strong></td>
+                            <td>发电机、电源</td>
+                            <td>电源设备</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-K...</strong></td>
+                            <td>继电器，接触器</td>
+                            <td>控制继电器</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-block" id="section4-2">
+                <h3>📋 型号分类 P-Z</h3>
+                <p>这些装置分为以下部件（P-Z分类）：</p>
+                
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>标记</th>
+                            <th>装置类型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>-P...</strong></td>
+                            <td>测量装置、试验设备</td>
+                            <td>测量与测试设备</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-Q...</strong></td>
+                            <td>高电流开关装置</td>
+                            <td>大电流开关设备</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-R...</strong></td>
+                            <td>电阻器</td>
+                            <td>电阻元件</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-S...</strong></td>
+                            <td>开关</td>
+                            <td>开关装置</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-T...</strong></td>
+                            <td>变压器</td>
+                            <td>变压设备</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-U...</strong></td>
+                            <td>调制器，变频器</td>
+                            <td>频率调制设备</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-X...</strong></td>
+                            <td>接线终端、插头、插座</td>
+                            <td>连接器件</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-Y...</strong></td>
+                            <td>电气控制的机械装置（阀门）</td>
+                            <td>电控机械装置</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <img src="pdf3_images/page_15_img_1.png" alt="型号分类" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图4-2：型号分类详细列表（第15-16页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #4</h4>
+                <p>问题：型号标记 "-K..." 表示什么装置？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, false)">A. 电容器</li>
+                    <li onclick="checkAnswer(this, true)">B. 继电器、接触器</li>
+                    <li onclick="checkAnswer(this, false)">C. 保护装置</li>
+                    <li onclick="checkAnswer(this, false)">D. 发电机</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第5章：连接标记 -->
+        <div class="content-section" id="section5">
+            <div class="section-header">
+                <h2>5. 连接标记 (:)</h2>
+                <p class="subtitle">标识装置的接线端</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 连接标记的结构</h3>
+                <p>标记"连接"表示装置的<strong>接线端</strong>。通过连接标记，可以清晰地识别设备中各个装置的连接关系和接线方式。</p>
+                
+                <div class="info-box">
+                    <h4>💡 连接标记的组成</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>连接识别号</strong>：用于区分不同的连接</li>
+                        <li><strong>接线端子</strong>：装置的实际接线位置</li>
+                        <li><strong>电位标识</strong>：连接的电位类型</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_18_img_1.png" alt="连接标记结构" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图5-1：连接标记的结构说明（第18页）</p>
+
+            <div class="content-block" id="section5-1">
+                <h3>📋 连接示例</h3>
+                <p>以下是连接标记的实际应用示例：</p>
+                
+                <div class="example-box">
+                    <h4>📋 连接标记范例</h4>
+                    <ul style="margin-left: 20px; line-height: 2.2;">
+                        <li><strong>:A1</strong> → 来自接触器的连接</li>
+                        <li><strong>:L1</strong> → 来自230V交流电源的接线端子</li>
+                        <li><strong>:M</strong> → 0V直流端子</li>
+                        <li><strong>:PE</strong> → 接地端子</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_19_img_1.png" alt="连接示例" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图5-2：连接标记示例（第19页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #5</h4>
+                <p>问题：连接标记 ":L1" 表示什么含义？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, false)">A. 0V直流端子</li>
+                    <li onclick="checkAnswer(this, true)">B. 来自230V交流电源的接线端子</li>
+                    <li onclick="checkAnswer(this, false)">C. 接地端子</li>
+                    <li onclick="checkAnswer(this, false)">D. 来自接触器的连接</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第6章：电缆标记 -->
+        <div class="content-section" id="section6">
+            <div class="section-header">
+                <h2>6. 电缆标记 (W)</h2>
+                <p class="subtitle">识别电缆连接</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 电缆标记的结构</h3>
+                <p>标记"电缆"用于识别两个控制柜之间的<strong>电缆</strong>。通过电缆标记，可以清晰地识别设备之间的电缆连接关系。</p>
+                
+                <div class="info-box">
+                    <h4>💡 电缆标记的组成</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>功能标记</strong>：电缆所属的功能组</li>
+                        <li><strong>字母"W"</strong>：表示电缆</li>
+                        <li><strong>电缆编号</strong>：电缆的唯一识别号</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_21_img_1.png" alt="电缆标记结构" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图6-1：电缆标记的结构说明（第21页）</p>
+
+            <div class="content-block" id="section6-1">
+                <h3>📋 电缆示例</h3>
+                <p>以下是电缆标记的实际应用示例：</p>
+                
+                <div class="example-box">
+                    <h4>📋 电缆标记范例</h4>
+                    <ul style="margin-left: 20px; line-height: 2.2;">
+                        <li><strong>=1E06 - W001</strong> → 用于变频器内风机的400V交流</li>
+                        <li><strong>=1E11 - W004</strong> → 400V AC LV – 配电至循环泵2</li>
+                        <li><strong>=1N12 - W111</strong> → 制动控制的信号制动杆</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_22_img_1.png" alt="电缆示例" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图6-2：电缆标记示例（第22页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #6</h4>
+                <p>问题：电缆标记中的字母"W"表示什么？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, false)">A. 功能</li>
+                    <li onclick="checkAnswer(this, false)">B. 位置</li>
+                    <li onclick="checkAnswer(this, true)">C. 电缆</li>
+                    <li onclick="checkAnswer(this, false)">D. 连接</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第7章：电位标记 -->
+        <div class="content-section" id="section7">
+            <div class="section-header">
+                <h2>7. 电位标记</h2>
+                <p class="subtitle">识别电路图中的不同电位</p>
+            </div>
+
+            <div class="content-block">
+                <h3>📌 电位标记的结构</h3>
+                <p>标记"电位"用于识别电路图中的不同<strong>电位</strong>。通过电位标记，可以清晰地识别电路中各个部分的电压等级和类型。</p>
+                
+                <div class="info-box">
+                    <h4>💡 电位标记的组成</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>电压水平</strong>：电位的电压等级</li>
+                        <li><strong>电位类型</strong>：直流电、交流电、接地等</li>
+                        <li><strong>电位标识</strong>：电位的唯一标识符</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_24_img_1.png" alt="电位标记结构" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图7-1：电位标记的结构说明（第24页）</p>
+
+            <div class="content-block" id="section7-1">
+                <h3>📋 电位示例</h3>
+                <p>以下是电位标记的实际应用示例：</p>
+                
+                <div class="example-box">
+                    <h4>📋 电位标记范例</h4>
+                    <ul style="margin-left: 20px; line-height: 2.2;">
+                        <li><strong>L+ 48V</strong> → +48V 直流电线</li>
+                        <li><strong>L1 230V</strong> → L1相位 230V 交流电线</li>
+                        <li><strong>PE 400V</strong> → 接地线</li>
+                    </ul>
+                </div>
+            </div>
+
+            <img src="pdf3_images/page_25_img_1.png" alt="电位示例" class="pdf-image" onclick="openModal(this)">
+            <p class="image-caption">图7-2：电位标记示例（第25页）</p>
+
+            <div class="quiz-box">
+                <h4>📝 自测练习 #7</h4>
+                <p>问题：电位标记 "L+ 48V" 表示什么含义？</p>
+                <ul class="quiz-options">
+                    <li onclick="checkAnswer(this, true)">A. +48V 直流电线</li>
+                    <li onclick="checkAnswer(this, false)">B. L1相位 230V 交流电线</li>
+                    <li onclick="checkAnswer(this, false)">C. 接地线</li>
+                    <li onclick="checkAnswer(this, false)">D. -48V 直流电线</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 学习总结 -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2>📊 学习总结</h2>
+                <p class="subtitle">矿井提升机设备术语完整学习总结</p>
+            </div>
+
+            <div class="content-block">
+                <h3>🎯 核心知识点回顾</h3>
+                <p>通过本学习手册，您已经学习了矿井提升机设备术语的7个核心部分：</p>
+                
+                <div class="info-box">
+                    <h4>✅ 已完成的学习内容</h4>
+                    <ul style="margin-left: 20px; line-height: 2.5;">
+                        <li><strong>1. 符号系统</strong>：四种基本符号 =、+、—、:</li>
+                        <li><strong>2. 功能标记</strong>：8个功能组（=A、=AE、=E、=G、=N、=U、=AU、=Y）</li>
+                        <li><strong>3. 位置标记</strong>：9个位置标识（+x.B、+x.A、+x.F、+x.G、+x.H等）</li>
+                        <li><strong>4. 型号标记</strong>：26个型号分类（从-A到-Z）</li>
+                        <li><strong>5. 连接标记</strong>：装置接线端的标识方法</li>
+                        <li><strong>6. 电缆标记</strong>：电缆连接的标识方法（W）</li>
+                        <li><strong>7. 电位标记</strong>：电路电位的标识方法</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>📝 学习建议</h3>
+                <p>为了巩固学习效果，建议您：</p>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>反复练习识别设备标记中的符号含义</li>
+                    <li>熟记8个功能组和9个位置标记</li>
+                    <li>理解26个型号分类的应用场景</li>
+                    <li>结合实际电路图进行识别练习</li>
+                    <li>完成所有自测题目，确保理解每个概念</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框（图片放大） -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // 导航栏交互
+        function toggleNavSection(element) {
+            element.classList.toggle('active');
+            const items = element.nextElementSibling;
+            items.classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // 更新活跃状态
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.classList.add('active');
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // 图片模态框功能
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // 点击模态框背景也关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 答题功能
+        function checkAnswer(element, isCorrect) {
+            const options = element.parentElement.querySelectorAll('li');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // 滚动时高亮当前章节
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.content-section');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(currentSection)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // 默认展开第一个导航部分
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstSection = document.querySelector('.nav-section-title');
+            if (firstSection && !firstSection.classList.contains('active')) {
+                firstSection.click();
+            }
+        });
+    </script>
+</body>
+</html>

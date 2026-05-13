@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提升机控制系统 - 补充学习资源</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .nav-back:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title span {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+        }
+
+        .resource-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 5px solid #667eea;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .resource-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .resource-desc {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .resource-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .resource-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .video-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .tips-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .tips-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .tips-box ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .tips-box li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 补充学习资源</h1>
+            <p>提升机控制系统 - 视频、文档与扩展阅读</p>
+            <a href="提升机控制系统_学习手册_新布局.html" class="nav-back">← 返回主学习手册</a>
+        </div>
+
+        <div class="content">
+            <!-- 视频资源 -->
+            <div class="section">
+                <h2 class="section-title"><span>1</span>视频动画资源</h2>
+                <p style="margin-bottom: 20px; color: #666;">通过3D动画和实操视频，直观理解提升机工作原理</p>
+
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-thumbnail">🎬</div>
+                        <div class="video-info">
+                            <div class="video-title">提升机三维动画原理演示</div>
+                            <div class="video-desc">腾讯视频 - 提升机设备动画原理演示视频，展示提升机工作流程</div>
+                            <a href="https://v.qq.com/x/page/o06191h3f46.html" target="_blank" class="resource-link">观看视频</a>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail">🎬</div>
+                        <div class="video-info">
+                            <div class="video-title">提升机原理动画演示</div>
+                            <div class="video-desc">腾讯视频 - 提升机工作原理的动画演示，高清1080P</div>
+                            <a href="https://v.qq.com/x/page/k32126s7le0.html" target="_blank" class="resource-link">观看视频</a>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail">🎬</div>
+                        <div class="video-info">
+                            <div class="video-title">豫兴JKM型多绳提升机模拟动画</div>
+                            <div class="video-desc">搜狐视频 - 多绳矿井提升机运行模拟动画演示</div>
+                            <a href="https://tv.sohu.com/v/dXMvMjk4NjY0MTQ3Lzg0NjQ3MTYxLnNodG1s.html" target="_blank" class="resource-link">观看视频</a>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail">🎬</div>
+                        <div class="video-info">
+                            <div class="video-title">提升机罐笼箕斗安全报警系统</div>
+                            <div class="video-desc">百度好看 - 矿井设备安全报警系统三维演示动画</div>
+                            <a href="https://haokan.baidu.com/v?vid=4714518203666413417" target="_blank" class="resource-link">观看视频</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技术文档 -->
+            <div class="section">
+                <h2 class="section-title"><span>2</span>技术文档与资料</h2>
+                <p style="margin-bottom: 20px; color: #666;">深入阅读官方技术文档和相关论文</p>
+
+                <div class="resource-card">
+                    <div class="resource-title">📄 矿井提升机电控系统的全面技术解决方案</div>
+                    <div class="resource-desc">
+                        官方PDF文档，详细介绍提升机电控系统的全面技术解决方案，包括高低压配电系统、传动系统、工艺控制系统等。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">官方</span>
+                        <span class="tag">PDF文档</span>
+                        <span class="tag">电控系统</span>
+                    </div>
+                    <a href="http://www.wechat.siemens.com.cn/external/sim_minisite/attachment/ziliao/%E7%9F%BF%E4%BA%95%E6%8F%90%E5%8D%87%E6%9C%BA%E7%94%B5%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%A8%E9%9D%A2%E6%8A%80%E6%9C%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.pdf" target="_blank" class="resource-link">下载PDF</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">📄 SIMATIC PCS 7 in Mining 视频文档</div>
+                    <div class="resource-desc">
+                        支持中心提供的采矿行业PCS 7应用视频，展示PCS 7在矿业中的特性和优势。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">视频资源</span>
+                        <span class="tag">PCS 7</span>
+                        <span class="tag">采矿自动化</span>
+                    </div>
+                    <a href="https://support.industry.siemens.com/cs/document/63653693/simatic-pcs-7-in-mining-(video)?dti=0&lc=en-US" target="_blank" class="resource-link">查看文档</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">📄 基于FM458与ABB ACS6000C的矿井提升自动控制系统</div>
+                    <div class="resource-desc">
+                        学术论文 - 以某铁矿为研究对象，介绍基于FM458和ACS6000C的自动控制系统设计思路、系统环境和硬件配置。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">学术论文</span>
+                        <span class="tag">FM458</span>
+                        <span class="tag">ACS6000C</span>
+                    </div>
+                    <a href="https://d.wanfangdata.com.cn/conference/ChxDb25mZXJlbmNlTmV3UzIwMjQxMTEzMTU1MjI0EgxXRkhZWFc1NjI5NDMaCGhyY3hpMmN0" target="_blank" class="resource-link">阅读论文</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">📄 PLC精通案例教程 - WinCC在矿井提升中的应用</div>
+                    <div class="resource-desc">
+                        以S7-300PLC作为主控制器，采用上位机监控，设计新型提升机控制系统，实现全数字控制。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">WinCC</span>
+                        <span class="tag">S7-300</span>
+                        <span class="tag">监控系统的</span>
+                    </div>
+                    <a href="https://www.docin.com/p-4271224446.html" target="_blank" class="resource-link">查看文档</a>
+                </div>
+            </div>
+
+            <!-- 扩展阅读 -->
+            <div class="section">
+                <h2 class="section-title"><span>3</span>扩展阅读与相关资料</h2>
+                <p style="margin-bottom: 20px; color: #666;">了解更多矿井提升机控制系统的应用案例和技术细节</p>
+
+                <div class="resource-card">
+                    <div class="resource-title">📚 基于PLC和变频器的矿井提升机控制系统设计</div>
+                    <div class="resource-desc">
+                        详细介绍矿井提升机电控系统结构设计、硬件设计、软件系统设计，涵盖PLC控制与变频器应用。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">PLC</span>
+                        <span class="tag">变频器</span>
+                        <span class="tag">系统设计</span>
+                    </div>
+                    <a href="https://www.zhinengdianli.com/zidonghua/jishu/84.html" target="_blank" class="resource-link">阅读全文</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">📚 矿井提升机电控系统原理设计</div>
+                    <div class="resource-desc">
+                        简析矿井提升机电控系统组成及原理设计，深入理解主控系统如何实现加、等、减、爬、停五个运行过程。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">原理设计</span>
+                        <span class="tag">系统组成</span>
+                        <span class="tag">控制逻辑</span>
+                    </div>
+                    <a href="https://wenku.baidu.com/view/ab030afa971ea76e58fafab069dc5022aaea46ad.html" target="_blank" class="resource-link">阅读全文</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">📚 Siemens Setting the Safety Standard in Mine Winders</div>
+                    <div class="resource-desc">
+                        英文文章 - 在矿井提升机安全标准方面的领先地位，WTC系统如何符合最新的数字化标准。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">英文资源</span>
+                        <span class="tag">安全标准</span>
+                        <span class="tag">WTC系统</span>
+                    </div>
+                    <a href="https://im-mining.com/2019/05/08/siemens-setting-safety-standard-mine-winders/" target="_blank" class="resource-link">Read Article</a>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">📚 Mine Hoists: Types, Operation & Applications</div>
+                    <div class="resource-desc">
+                        英文技术指南 - 介绍矿井提升机的类型、操作原理、应用场景和选型指南，帮助理解提升机基本工作原理。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">英文资源</span>
+                        <span class="tag">工作原理</span>
+                        <span class="tag">类型介绍</span>
+                    </div>
+                    <a href="https://www.csmeminingequipment.com/news/what-is-a-mine-hoist/" target="_blank" class="resource-link">Read Article</a>
+                </div>
+            </div>
+
+            <!-- 学习建议 -->
+            <div class="section">
+                <h2 class="section-title"><span>4</span>学习建议与技巧</h2>
+
+                <div class="tips-box">
+                    <h3>💡 如何有效利用这些资源</h3>
+                    <ul>
+                        <li><strong>循序渐进：</strong>先观看视频动画，建立直观认识，再阅读技术文档深入理解</li>
+                        <li><strong>理论与实践结合：</strong>在学习PDF文档的理论知识后，通过在线资源查看实际应用场景</li>
+                        <li><strong>重点关注：</strong>WTC系统架构、三闭环控制、安全保护系统、液压制动系统</li>
+                        <li><strong>互动学习：</strong>使用主学习手册中的自测题检验学习效果</li>
+                        <li><strong>做好笔记：</strong>记录关键参数、安全监控功能、故障诊断方法</li>
+                    </ul>
+                </div>
+
+                <div class="tips-box" style="background: #d1ecf1; border-color: #17a2b8;">
+                    <h3 style="color: #0c5460;">🔧 实操建议</h3>
+                    <ul style="color: #0c5460;">
+                        <li>如果有条件，参观实际的矿井提升机安装现场，观察WTC系统实际运行</li>
+                        <li>使用PLC仿真软件（如PLCSIM）模拟提升机控制逻辑</li>
+                        <li>研究实际的项目文档和电气原理图，理解系统设计思路</li>
+                        <li>学习使用DriveMonitor和STARTER等调试工具</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 相关产品与技术 -->
+            <div class="section">
+                <h2 class="section-title"><span>5</span>相关产品与技术</h2>
+                <p style="margin-bottom: 20px; color: #666;">了解提升机控制系统相关的产品和技术</p>
+
+                <div class="resource-card">
+                    <div class="resource-title">⚙️ SIMATIC S7-400 PLC</div>
+                    <div class="resource-desc">
+                        S7-400系列PLC，用于构建冗余控制系统，是WTC系统的核心控制硬件。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">PLC</span>
+                        <span class="tag">冗余控制</span>
+                        <span class="tag">S7-400</span>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">⚙️ FM458 工艺控制器</div>
+                    <div class="resource-desc">
+                        64位RISC CPU工艺控制器，负责位置控制、速度给定和制动控制，是WTC系统的高速控制核心。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">工艺控制</span>
+                        <span class="tag">高速控制</span>
+                        <span class="tag">RISC CPU</span>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">⚙️ COBRA 01 液压制动系统</div>
+                    <div class="resource-desc">
+                        n+1通道设计，支持多通道独立控制和在线测试，具备完整的故障诊断和安全保护功能。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">液压制动</span>
+                        <span class="tag">n+1设计</span>
+                        <span class="tag">安全保护</span>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-title">⚙️ SIMATIC S7-300F 安全PLC</div>
+                    <div class="resource-desc">
+                        故障安全型PLC，实现SAC、ESC、LOC三级安全保护，达到SIL3安全等级。
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span class="tag">安全PLC</span>
+                        <span class="tag">SIL3</span>
+                        <span class="tag">故障安全</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

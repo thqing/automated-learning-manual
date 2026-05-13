@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动化学习手册中心</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-book-open"></i> 自动化学习手册中心</h1>
+            <p class="subtitle">提升机控制系统 | TIA-WTC | PLC编程</p>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="搜索手册内容..." onkeyup="searchManuals()">
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="stats">
+            <div class="stat-item">
+                <i class="fas fa-file-alt"></i>
+                <span id="totalManuals">0</span>
+                <label>手册总数</label>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-folder"></i>
+                <span id="totalCategories">0</span>
+                <label>分类数量</label>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-clock"></i>
+                <span>2026</span>
+                <label>更新年份</label>
+            </div>
+        </div>
+
+        <!-- 分类：提升机控制系统 -->
+        <section class="category">
+            <h2><i class="fas fa-industry"></i> 提升机控制系统</h2>
+            <p class="category-desc">矿井提升机控制系统的完整学习资料，包括理论、实操和交互式演示</p>
+            <div class="manual-grid">
+                <div class="manual-card" data-keywords="提升机 控制系统  学习手册">
+                    <div class="card-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>提升机控制系统学习手册</h3>
+                    <p>完整的提升机控制系统学习手册，包含系统概述、控制原理、操作步骤和故障诊断</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-file"></i> HTML</span>
+                        <span><i class="fas fa-clock"></i> 2026-05</span>
+                    </div>
+                    <a href="hoist-control/提升机控制系统_学习手册_新布局.html" class="card-link">开始学习 <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="manual-card" data-keywords="提升机 补充资源 参考资料">
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>提升机控制系统补充资源</h3>
+                    <p>额外的学习资源和参考资料，帮助深入理解提升机控制系统</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-file"></i> HTML</span>
+                        <span><i class="fas fa-clock"></i> 2026-05</span>
+                    </div>
+                    <a href="hoist-control/提升机控制系统_补充资源.html" class="card-link">查看资源 <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="manual-card" data-keywords="PI控制 交互式 理论 模拟">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>PI控制理论 - 交互式学习</h3>
+                    <p>交互式PI控制理论学习模块，包含实时模拟演示和参数调节</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-file"></i> HTML</span>
+                        <span><i class="fas fa-mouse-pointer"></i> 交互式</span>
+                    </div>
+                    <a href="hoist-control/PI控制理论_交互式学习.html" class="card-link">交互学习 <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="manual-card" data-keywords="矿井 提升机 设备 术语">
+                    <div class="card-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>矿井提升机设备术语</h3>
+                    <p>完整的矿井提升机设备术语学习手册，中英文对照</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-file"></i> HTML</span>
+                        <span><i class="fas fa-clock"></i> 2026-05</span>
+                    </div>
+                    <a href="hoist-control/矿井提升机设备术语_完整学习手册.html" class="card-link">学习术语 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分类：TIA-WTC -->
+        <section class="category">
+            <h2><i class="fas fa-microchip"></i> TIA-WTC 技术手册</h2>
+            <p class="category-desc">TIA（全集成自动化）与WTC（WinToolControl）相关技术文档和学习资料</p>
+            <div class="manual-grid">
+                <div class="manual-card" data-keywords="TIA WTC 中英文 对照 学习手册">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>TIA-WTC 中英文对照学习手册</h3>
+                    <p>完整版TIA-WTC中英文对照学习手册，方便中英文学习和对照</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-file"></i> HTML</span>
+                        <span><i class="fas fa-language"></i> 中英文</span>
+                    </div>
+                    <a href="tia-wtc/TIA-WTC_中英文对照学习手册_完整版.html" class="card-link">开始学习 <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+        </section>
+        <!-- 分类：theory -->
+        <section class="category">
+            <h2><i class="fas fa-microchip"></i> 基础理论 </h2>
+            <p class="category-desc">关于提升机控制需要学习的数理基础理论</p>
+            <div class="manual-grid">
+                <div class="manual-card" data-keywords="积分 微分 导数 PI PID 控制理论">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>微积分学习笔记</h3>
+                    <p>微积分学习笔记</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-file"></i> HTML</span>
+                        <span><i class="fas fa-language"></i> 中文</span>
+                    </div>
+                    <a href="theory/微积分学习笔记.html" class="card-link">开始学习 <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 使用说明 -->
+        <section class="category">
+            <h2><i class="fas fa-info-circle"></i> 使用说明</h2>
+            <div class="help-box">
+                <h3><i class="fas fa-search"></i> 搜索功能</h3>
+                <p>在上方搜索框中输入关键词，可以快速查找所有手册中的内容。支持中文和英文搜索。</p>
+
+                <h3><i class="fas fa-mobile-alt"></i> 移动端适配</h3>
+                <p>本网站采用响应式设计，可以在手机、平板和电脑上正常浏览。</p>
+
+                <h3><i class="fas fa-download"></i> 离线使用</h3>
+                <p>所有手册都支持离线使用。你可以将整个仓库克隆到本地，用浏览器打开 index.html 即可。</p>
+
+                <h3><i class="fas fa-code-branch"></i> 贡献与更新</h3>
+                <p>如果你有新的学习手册想要添加，或者发现错误需要修正，欢迎提交 Pull Request！</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 工业自动化学习手册中心 | 基于 GitHub Pages 构建</p>
+            <p>
+                <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a> | 
+                <a href="#" onclick="showAbout()">关于</a> | 
+                <a href="#" onclick="showChangelog()">更新日志</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/search.js"></script>
+    <script>
+        // 页面加载时更新统计信息
+        window.onload = function() {
+            updateStats();
+        };
+
+        function updateStats() {
+            const totalManuals = document.querySelectorAll('.manual-card').length;
+            const totalCategories = document.querySelectorAll('.category').length - 1; // 减去"使用说明"
+
+            document.getElementById('totalManuals').textContent = totalManuals;
+            document.getElementById('totalCategories').textContent = totalCategories;
+        }
+
+        function showAbout() {
+            alert('工业自动化学习手册中心\n\n本网站收集整理了工业自动化领域的学习手册和技术文档，旨在为工程师和学习者提供便捷的学习资源。\n\n技术栈：HTML5 + CSS3 + JavaScript\n部署：GitHub Pages');
+        }
+
+        function showChangelog() {
+            alert('更新日志\n\n2026-05-13:\n- 创建网站首页\n- 添加搜索功能\n- 整理手册分类\n- 配置GitHub Pages部署');
+        }
+    </script>
+</body>
+</html>
